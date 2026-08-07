@@ -9,49 +9,90 @@ created or uploaded.
 from datetime import datetime, timezone
 
 import config
+import duplicate_detector
 from logger import format_bytes
 
 _FILES_KEY = "__files__"
+
+
+def compute_dest_path(programme, dest_subpath, name):
+    """The exact '/'-joined destination path a file will have, relative
+    to the destination root folder. Shared with main.py's upload phase so
+    the plan and the real result can never disagree."""
+    parts = ([programme] if programme else []) + (
+        dest_subpath.split("/") if dest_subpath else []
+    ) + [name]
+    return "/".join(p for p in parts if p)
+
+
+def _status_marker(status):
+    return {
+        "uploaded": " [already imported]",
+        "duplicate": " [duplicate - was skipped]",
+        "planned_duplicate": " [duplicate - will be skipped]",
+        "inaccessible": " [inaccessible - previously failed]",
+        "error": " [previous error - will be retried]",
+    }.get(status, "")
 
 
 def build_plan(db):
     """Turn the 'discovered' table into a nested tree plus summary stats.
 
     Returns (root_files, programmes, stats):
-      - root_files: list of (name, size, status) tuples that will sit
-        directly in the destination root (single-resource programmes and
-        standalone linked files).
+      - root_files: list of (name, size, status, reason, full_path) tuples
+        that will sit directly in the destination root (single-resource
+        programmes and standalone linked files).
       - programmes: {programme_name: node} where each node is
         {"__files__": [...], subfolder_name: node, ...} - a plain nested
         dict mirroring the folders/files that will be created.
       - stats: summary counts for the report header.
     """
+    predictions = duplicate_detector.simulate_pending_duplicates(db)
+
     root_files = []
     programmes = {}
+    all_files = []  # flat list of (full_path, size, status, reason) for every file
+
     total_files = 0
     total_size = 0
     already_uploaded = 0
     duplicates = 0
+    inaccessible = 0
+    errors = 0
 
     for row in db.iter_all_discovered():
         total_files += 1
         size = row["size"] or 0
         total_size += size
         status = row["status"]
+        reason = row["reason"] or ""
+
+        if status == "pending":
+            would_dup, dup_reason = predictions.get(row["source_id"], (False, None))
+            if would_dup:
+                status = "planned_duplicate"
+                reason = dup_reason
+
         if status == "uploaded":
             already_uploaded += 1
-        elif status == "duplicate":
+        elif status in ("duplicate", "planned_duplicate"):
             duplicates += 1
+        elif status == "inaccessible":
+            inaccessible += 1
+        elif status == "error":
+            errors += 1
 
-        entry = (row["name"], size, status)
         programme = row["programme"]
+        subpath = row["dest_subpath"] or ""
+        full_path = compute_dest_path(programme, subpath, row["name"])
+        entry = (row["name"], size, status, reason)
+        all_files.append((full_path, size, status, reason))
 
         if not programme:
             root_files.append(entry)
             continue
 
         node = programmes.setdefault(programme, {_FILES_KEY: []})
-        subpath = row["dest_subpath"] or ""
         current = node
         if subpath:
             for part in subpath.split("/"):
@@ -65,30 +106,23 @@ def build_plan(db):
         "total_size": total_size,
         "already_uploaded": already_uploaded,
         "duplicates": duplicates,
-        "pending": total_files - already_uploaded - duplicates,
+        "inaccessible": inaccessible,
+        "errors": errors,
+        "pending": total_files - already_uploaded - duplicates - inaccessible - errors,
     }
-    return root_files, programmes, stats
-
-
-def _status_marker(status):
-    return {
-        "uploaded": " [already imported]",
-        "duplicate": " [duplicate - will be skipped]",
-        "inaccessible": " [inaccessible - will be skipped]",
-        "error": " [previous error - will be retried]",
-    }.get(status, "")
+    return root_files, programmes, stats, all_files
 
 
 def _render_node(node, indent, lines):
     prefix = "    " * indent
-    for name, size, status in sorted(node.get(_FILES_KEY, []), key=lambda e: e[0].lower()):
+    for name, size, status, reason in sorted(node.get(_FILES_KEY, []), key=lambda e: e[0].lower()):
         lines.append(f"{prefix}{name}  ({format_bytes(size)}){_status_marker(status)}")
     for key in sorted((k for k in node.keys() if k != _FILES_KEY), key=str.lower):
         lines.append(f"{prefix}{key}/")
         _render_node(node[key], indent + 1, lines)
 
 
-def render_plan_report(root_files, programmes, stats, db, destination_folder_name=None):
+def render_plan_report(root_files, programmes, stats, db, destination_folder_name=None, all_files=None):
     lines = []
     lines.append("=" * 78)
     lines.append("BELIEF CODING RESOURCE IMPORTER - PROPOSED IMPORT PLAN")
@@ -107,28 +141,41 @@ def render_plan_report(root_files, programmes, stats, db, destination_folder_nam
         f"({format_bytes(stats['total_size'])} total)."
     )
     lines.append(
+        f"  Will be uploaded:                   {stats['pending']}\n"
         f"  Already imported in a previous run: {stats['already_uploaded']}\n"
-        f"  Detected as duplicates:             {stats['duplicates']}\n"
-        f"  Still pending upload:               {stats['pending']}"
+        f"  Duplicates (will be skipped):       {stats['duplicates']}\n"
+        f"  Inaccessible:                       {stats['inaccessible']}\n"
+        f"  Previous errors (will retry):       {stats['errors']}"
     )
     lines.append("")
     lines.append("NOTHING HAS BEEN UPLOADED OR CREATED IN GOOGLE DRIVE YET.")
     lines.append("Review the structure below. Re-run with --execute once you approve it.")
     lines.append("=" * 78)
     lines.append("")
+    lines.append("FOLDER TREE")
+    lines.append("-" * 78)
     lines.append("(destination root)/")
-    for name, size, status in sorted(root_files, key=lambda e: e[0].lower()):
+    for name, size, status, reason in sorted(root_files, key=lambda e: e[0].lower()):
         lines.append(f"    {name}  ({format_bytes(size)}){_status_marker(status)}")
     for programme_name in sorted(programmes.keys(), key=str.lower):
         lines.append(f"    {programme_name}/")
         _render_node(programmes[programme_name], indent=2, lines=lines)
+
+    if all_files is not None:
+        lines.append("")
+        lines.append("=" * 78)
+        lines.append(f"FULL FILE LIST - every file with its complete destination path ({len(all_files)})")
+        lines.append("-" * 78)
+        for full_path, size, status, reason in sorted(all_files, key=lambda e: e[0].lower()):
+            reason_suffix = f"  -- {reason}" if reason and status in ("duplicate", "planned_duplicate", "inaccessible", "error") else ""
+            lines.append(f"  {full_path}  ({format_bytes(size)}){_status_marker(status)}{reason_suffix}")
 
     broken = list(db.iter_broken_links())
     if broken:
         lines.append("")
         lines.append("=" * 78)
         lines.append(f"BROKEN / INACCESSIBLE LINKS ({len(broken)})")
-        lines.append("=" * 78)
+        lines.append("-" * 78)
         for row in broken:
             lines.append(f"  [{row['source_pdf']}] {row['url']}")
             lines.append(f"      reason: {row['reason']}")

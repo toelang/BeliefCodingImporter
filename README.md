@@ -18,13 +18,17 @@ wrapper folders stripped out and duplicates never re-imported.
    `Pay in Full Bonuses`, `Bonuses`, `Member Resources`, `Shared
    Resources`) so they never appear in your Drive - only real programme
    content does.
-4. Uploads everything into the destination folder you already have in
-   Google Drive, grouping multi-file programmes into their own folder and
-   placing single-file bonuses directly at the top level.
-5. Skips anything it has already imported (by Drive file ID, then content
+4. By default (`python main.py`, no arguments) it **stops right there**
+   and writes `import_plan.txt` - the exact destination structure it
+   proposes, for you to review. Nothing is uploaded or created in Drive.
+5. Only once you run `python main.py --execute` does it actually create
+   folders and upload files - grouping multi-file programmes into their
+   own folder and placing single-resource items directly at the
+   destination root.
+6. Skips anything it has already imported (by Drive file ID, then content
    hash, then filename+size), so re-running the tool after an
    interruption picks up exactly where it left off.
-6. Logs everything to `import_log.csv` and prints live progress while it
+7. Logs everything to `import_log.csv` and prints live progress while it
    runs.
 
 ## Requirements
@@ -106,22 +110,30 @@ The first run opens a browser window asking you to sign in to Google and
 approve access - after that, `token.json` is reused automatically and you
 won't be asked again unless it's revoked or deleted.
 
-The plan looks like this:
+`import_plan.txt` has four parts:
 
-```
-(destination root)/
-    Working with Your Spirit Animal.mp4  (240.1 MB)
-    Reiki 1/
-        Reiki Intro.mp4  (190.7 MB)
-        Workbook.pdf  (1.9 MB)
-    Money Mindset/
-        Module 1 - Money Mindset.mp4  (150.2 MB)
-        ...
-```
+1. A **summary** - counts and total size, broken down into how many files
+   will actually upload vs. how many are already imported, duplicates, or
+   inaccessible.
+2. A **folder tree**, for a quick visual sanity check:
+   ```
+   (destination root)/
+       Working with Your Spirit Animal.mp4  (240.1 MB)
+       Reiki 1/
+           Reiki Intro.mp4  (190.7 MB)
+           Workbook.pdf  (1.9 MB)
+       Money Mindset/
+           Module 1 - Money Mindset.mp4  (150.2 MB)
+           ...
+   ```
+3. A **full file list** - every single file with its complete destination
+   path spelled out, e.g. `Reiki 1/Extras/Bonus Session.mp4`, exactly as
+   it will appear once uploaded (or already appears, if marked `[already
+   imported]`), so there's no ambiguity about where anything lands.
+4. Any **broken or inaccessible links**, with the source PDF and reason.
 
-along with a summary of how many files/programmes were found, and a list
-of any broken or inaccessible links. Check this over carefully - it's the
-exact structure that will be created.
+Check this over carefully - it's the exact structure that will be
+created, and nothing in Google Drive has been touched yet.
 
 ## 5. Approve and run the real import
 
@@ -213,6 +225,16 @@ Applied in this order, exactly as specified:
 A defensive extra check also asks the live destination folder directly
 before every upload, in case `import_state.db` was ever deleted or lost.
 
+**In plan mode, all of this is simulated so the plan is accurate before
+anything runs.** The real check above only knows about files already
+marked "uploaded" from a past `--execute` run, so on a first-ever run it
+would report zero duplicates even if, say, the same recording was linked
+twice under two different names. The plan additionally tracks checksums
+and filename+size pairs across the not-yet-uploaded files as it walks
+through them, so a duplicate *within the same import* is caught and shown
+before you approve anything - not discovered partway through the real
+upload.
+
 ## Why download-and-reupload instead of Drive's "copy" feature
 
 The spec explicitly rules out Google Drive's "Make a Copy" action (which
@@ -229,6 +251,40 @@ download as-is, so these are exported to an equivalent static format
 their original Google Workspace mime type - Drive automatically converts
 that back into a live, editable Doc/Sheet/Slide in the destination, so
 you still end up with a real Google file rather than a flattened export.
+
+## Engineering decisions & defaults
+
+A few implementation choices weren't specified exactly and were resolved
+with a sensible default rather than turned into a question. Documented
+here so they're easy to revisit:
+
+- **Programme folder naming.** The destination folder for a multi-file
+  programme uses that programme's actual Drive folder name as-is. There's
+  no large hand-maintained mapping table from every PDF link title to a
+  canonical programme name - if a specific source folder's name doesn't
+  match what you want it called, add one line to `PROGRAMME_RENAMES` in
+  `config.py` rather than renaming things in Drive.
+- **Wrapper folder matching** is a case-insensitive substring match
+  against `WRAPPER_FOLDER_NAMES`, applied at any depth (including if a
+  link points directly at a wrapper). Add more phrases to that list if
+  another marketing wrapper turns up that isn't already covered.
+- **Folder-listing loop protection.** Each folder is only listed once per
+  run (tracked in memory via the database), both to guard against
+  shortcut cycles and to avoid redundant work if the same folder is
+  reachable from two different links. Re-running always re-lists from
+  scratch so newly added source content is picked up.
+- **Duplicate simulation in plan mode** predicts what `--execute` would
+  do without being able to see the future (e.g. a permission revoked
+  between planning and executing would only surface at execute time as
+  "inaccessible"). Treat the plan as accurate for what's true right now.
+- **Retries**: transient Drive errors (rate limiting, 5xx, network
+  blips) retry up to `MAX_RETRIES` times with exponential backoff before
+  a file is marked `error`; permission-denied and not-found responses are
+  treated as immediately inaccessible rather than retried, since retrying
+  won't fix them.
+- **Filenames are never sanitised or altered** for the destination - only
+  the local temp filename (used purely as a scratch path on disk) is
+  stripped of unusual characters.
 
 ## Project structure
 

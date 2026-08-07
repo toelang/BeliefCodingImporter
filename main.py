@@ -41,6 +41,7 @@ import drive_crawler
 import drive_uploader
 import duplicate_detector
 import pdf_parser
+import plan_report
 from database import Database
 from drive_uploader import InaccessibleError
 from logger import CsvLogger, ProgressReporter, setup_logging
@@ -156,7 +157,7 @@ def _upload_one(service, db, csv_logger, progress, row):
         if temp_path.exists():
             temp_path.unlink(missing_ok=True)
 
-    dest_path_str = "/".join([p for p in ([programme] if programme else []) + (dest_subpath.split("/") if dest_subpath else []) + [name] if p])
+    dest_path_str = plan_report.compute_dest_path(programme, dest_subpath, name)
     db.update_status(
         source_id, "uploaded",
         dest_file_id=uploaded.get("id"),
@@ -197,8 +198,6 @@ def _crawl_phase(service, db, progress):
 def _show_plan(service, db):
     """Build and print/save the proposed destination structure. Makes no
     changes to Google Drive whatsoever - not even folder creation."""
-    import plan_report
-
     root_id = drive_uploader.resolve_folder_id_from_url(config.DESTINATION_FOLDER_URL)
     try:
         dest_meta = drive_uploader.get_file_metadata(service, root_id, fields="id, name")
@@ -207,8 +206,8 @@ def _show_plan(service, db):
         log.error("Could not read the destination folder itself: %s", exc)
         dest_name = None
 
-    root_files, programmes, stats = plan_report.build_plan(db)
-    report = plan_report.render_plan_report(root_files, programmes, stats, db, dest_name)
+    root_files, programmes, stats, all_files = plan_report.build_plan(db)
+    report = plan_report.render_plan_report(root_files, programmes, stats, db, dest_name, all_files)
 
     config.PLAN_REPORT_FILE.write_text(report, encoding="utf-8")
     print("\n" + report)

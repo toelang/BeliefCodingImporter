@@ -69,6 +69,58 @@ def check_before_download(db, source_id, name, size, md5, sha256) -> Optional[Du
     return None
 
 
+def simulate_pending_duplicates(db):
+    """Predict, without changing anything in the database, which of the
+    still-'pending' rows --execute would treat as duplicates.
+
+    This mirrors check_before_download() (Drive ID / checksum / name+size,
+    checked against files already truly uploaded in a past run) but also
+    catches duplicates *within* the same not-yet-executed batch - e.g. two
+    different source files discovered from two different links that turn
+    out to have identical content - which check_before_download alone
+    cannot see, since it only looks at rows already marked 'uploaded'.
+
+    Returns {source_id: (would_be_duplicate: bool, reason: str or None)}.
+    Used purely to make the plan preview accurate; the real, authoritative
+    duplicate check still happens at upload time in --execute mode.
+    """
+    predictions = {}
+    seen_checksums = {}   # sha256-or-md5 -> name of first pending file claiming it
+    seen_name_size = {}   # (name, size) -> name of first pending file claiming it
+
+    for row in db.iter_pending():
+        source_id, name, size = row["source_id"], row["name"], row["size"]
+        md5, sha256 = row["md5"], row["sha256"]
+
+        existing_dup = check_before_download(db, source_id, name, size, md5, sha256)
+        if existing_dup:
+            predictions[source_id] = (True, existing_dup.reason)
+            continue
+
+        checksum_key = sha256 or md5
+        if checksum_key and checksum_key in seen_checksums:
+            predictions[source_id] = (
+                True,
+                f"identical content to '{seen_checksums[checksum_key]}', also pending in this import",
+            )
+            continue
+
+        name_size_key = (name, size)
+        if name_size_key in seen_name_size:
+            predictions[source_id] = (
+                True,
+                f"same filename and size as '{seen_name_size[name_size_key]}', also pending in this import",
+            )
+            continue
+
+        predictions[source_id] = (False, None)
+        if checksum_key:
+            seen_checksums[checksum_key] = name
+        seen_name_size[name_size_key] = name
+
+    return predictions
+
+
 def check_against_live_destination(service, parent_id, name, size) -> Optional[DuplicateMatch]:
     """Defensive check straight against Drive itself, in case the local
     database was deleted/reset but the destination already has the file
