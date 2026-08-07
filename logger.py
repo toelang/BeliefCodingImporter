@@ -113,7 +113,16 @@ def format_bytes(n):
 
 class ProgressReporter:
     """Tracks and prints live progress. Call the update_* methods as the
-    importer works; call render() after each update."""
+    importer works; call render() after each update.
+
+    ETA is based on total *data volume* remaining divided by the measured
+    upload throughput so far (bytes actually transferred / elapsed time),
+    not on an average count of seconds-per-file. A file-count average is
+    badly misleading here: a handful of small PDFs uploaded first would
+    make a multi-GB video look like it's "due any second", and the ETA
+    would keep climbing as bigger files came up instead of converging on
+    an answer.
+    """
 
     def __init__(self):
         self.folders_scanned = 0
@@ -124,8 +133,9 @@ class ProgressReporter:
         self.errors = 0
         self.current_programme = "-"
         self.bytes_uploaded = 0
+        self.bytes_remaining = 0
         self._start_time = time.time()
-        self._upload_durations = []  # seconds per uploaded file, for ETA
+        self._upload_phase_start = None
         self._last_render_len = 0
 
     def folder_scanned(self):
@@ -137,32 +147,46 @@ class ProgressReporter:
     def set_current_programme(self, name):
         self.current_programme = name or "-"
 
-    def file_uploaded(self, size_bytes, duration_seconds):
+    def set_total_pending_bytes(self, total_bytes):
+        """Call once, right before the upload loop starts, with the sum of
+        'size' across every pending row. Starts the clock used for the
+        throughput measurement behind the ETA."""
+        self.bytes_remaining = total_bytes or 0
+        self._upload_phase_start = time.time()
+
+    def _consume(self, size_bytes):
+        self.bytes_remaining = max(0, self.bytes_remaining - (size_bytes or 0))
+
+    def file_uploaded(self, size_bytes, duration_seconds=None):
         self.files_uploaded += 1
         self.bytes_uploaded += size_bytes or 0
-        if duration_seconds and duration_seconds > 0:
-            self._upload_durations.append(duration_seconds)
-            # keep a rolling window so ETA adapts to recent throughput
-            if len(self._upload_durations) > 25:
-                self._upload_durations.pop(0)
+        self._consume(size_bytes)
 
-    def duplicate_skipped(self):
+    def duplicate_skipped(self, size_bytes=0):
         self.duplicates_skipped += 1
+        self._consume(size_bytes)
 
-    def marked_inaccessible(self):
+    def marked_inaccessible(self, size_bytes=0):
         self.inaccessible += 1
+        self._consume(size_bytes)
 
-    def marked_error(self):
+    def marked_error(self, size_bytes=0):
         self.errors += 1
+        self._consume(size_bytes)
 
-    def _eta_seconds(self, remaining_files):
-        if not self._upload_durations or remaining_files <= 0:
+    def _eta_seconds(self):
+        if not self._upload_phase_start or self.bytes_uploaded <= 0:
             return None
-        avg = sum(self._upload_durations) / len(self._upload_durations)
-        return avg * remaining_files
+        elapsed = time.time() - self._upload_phase_start
+        if elapsed <= 0:
+            return None
+        throughput = self.bytes_uploaded / elapsed  # bytes/sec, measured
+        if throughput <= 0:
+            return None
+        return self.bytes_remaining / throughput
 
-    def render(self, remaining_files=0, final=False):
-        eta = _format_eta(self._eta_seconds(remaining_files))
+    def render(self, final=False):
+        eta = _format_eta(self._eta_seconds())
         line = (
             f"Folders scanned: {self.folders_scanned} | "
             f"Files discovered: {self.files_discovered} | "
@@ -170,6 +194,7 @@ class ProgressReporter:
             f"Duplicates skipped: {self.duplicates_skipped} | "
             f"Inaccessible/errors: {self.inaccessible + self.errors} | "
             f"Programme: {self.current_programme} | "
+            f"Remaining: {format_bytes(self.bytes_remaining)} | "
             f"ETA: {eta}"
         )
         pad = max(0, self._last_render_len - len(line))

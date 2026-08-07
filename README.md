@@ -156,8 +156,16 @@ folders since you last checked - re-run the plan first if you want to be
 sure). While it runs you'll see a single live-updating status line:
 
 ```
-Folders scanned: 42 | Files discovered: 310 | Uploaded: 128 (4.2 GB) | Duplicates skipped: 6 | Inaccessible/errors: 2 | Programme: Money Mindset | ETA: 12m 30s
+Folders scanned: 42 | Files discovered: 310 | Uploaded: 128 (4.2 GB) | Duplicates skipped: 6 | Inaccessible/errors: 2 | Programme: Money Mindset | Remaining: 61.4 GB | ETA: 3h 12m
 ```
+
+The ETA is based on total remaining **data volume** divided by your
+measured upload throughput so far, not a count of files - with imports
+this size (often tens of GB, since every file is downloaded then
+re-uploaded), a small handful of tiny PDFs uploading first would make a
+file-count average wildly optimistic. Expect the ETA to be rough for the
+first few files and settle down after that; treat "Remaining" (the raw
+GB left) as the more stable number early on.
 
 ## Resuming after an interruption
 

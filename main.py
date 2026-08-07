@@ -80,7 +80,7 @@ def _upload_one(service, db, csv_logger, progress, row):
         db.update_status(source_id, "duplicate", reason=dup.reason)
         csv_logger.log("duplicate", name=name, source_id=source_id, programme=programme or "",
                         reason=dup.reason, size_bytes=size or "")
-        progress.duplicate_skipped()
+        progress.duplicate_skipped(size)
         log.info("Duplicate, skipped: %s (%s)", name, dup.reason)
         return
 
@@ -95,7 +95,7 @@ def _upload_one(service, db, csv_logger, progress, row):
         db.update_status(source_id, "error", reason=f"destination folder error: {exc}")
         csv_logger.log("skipped", name=name, source_id=source_id, programme=programme or "",
                         reason=str(exc))
-        progress.marked_error()
+        progress.marked_error(size)
         log.error("Could not prepare destination for %s: %s", name, exc)
         return
 
@@ -105,7 +105,7 @@ def _upload_one(service, db, csv_logger, progress, row):
         db.update_status(source_id, "duplicate", reason=live_dup.reason)
         csv_logger.log("duplicate", name=name, source_id=source_id, programme=programme or "",
                         reason=live_dup.reason, size_bytes=size or "")
-        progress.duplicate_skipped()
+        progress.duplicate_skipped(size)
         log.info("Duplicate (found already in destination), skipped: %s", name)
         return
 
@@ -130,7 +130,7 @@ def _upload_one(service, db, csv_logger, progress, row):
                 db.update_status(source_id, "duplicate", reason="identical content (sha256, computed locally)")
                 csv_logger.log("duplicate", name=name, source_id=source_id, programme=programme or "",
                                 reason="identical content (sha256, computed locally)")
-                progress.duplicate_skipped()
+                progress.duplicate_skipped(size)
                 log.info("Duplicate (content match after download), skipped: %s", name)
                 return
 
@@ -143,14 +143,14 @@ def _upload_one(service, db, csv_logger, progress, row):
         db.update_status(source_id, "inaccessible", reason=str(exc))
         csv_logger.log("inaccessible", name=name, source_id=source_id, programme=programme or "",
                         reason=str(exc))
-        progress.marked_inaccessible()
+        progress.marked_inaccessible(size)
         log.warning("Inaccessible, skipped: %s (%s)", name, exc)
         return
     except Exception as exc:
         db.update_status(source_id, "error", reason=str(exc))
         csv_logger.log("skipped", name=name, source_id=source_id, programme=programme or "",
                         reason=f"error: {exc}", size_bytes=size or "")
-        progress.marked_error()
+        progress.marked_error(size)
         log.exception("Failed to import %s", name)
         return
     finally:
@@ -221,11 +221,11 @@ def _show_plan(service, db):
 def _upload_phase(service, db, csv_logger, progress):
     pending_rows = list(db.iter_pending())
     log.info("Uploading %d pending file(s)...", len(pending_rows))
+    progress.set_total_pending_bytes(sum(row["size"] or 0 for row in pending_rows))
 
-    for i, row in enumerate(pending_rows):
+    for row in pending_rows:
         _upload_one(service, db, csv_logger, progress, row)
-        remaining = len(pending_rows) - (i + 1)
-        progress.render(remaining_files=remaining)
+        progress.render()
 
     progress.render(final=True)
     counts = db.counts()
