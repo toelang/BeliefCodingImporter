@@ -82,15 +82,28 @@ class Database:
 
     def add_discovered(self, source_id, source_kind, name, mime_type, size,
                         md5, sha256, programme, dest_subpath):
-        """Insert a newly discovered source file. No-op if already known
-        (so re-crawling after a resume never resets progress)."""
+        """Insert a newly discovered source file, or refresh its computed
+        programme/path/metadata if it's already known. Re-crawling always
+        recomputes organisation (e.g. after a config/logic change), but
+        never touches status/dest_file_id/dest_path/reason - a file's
+        upload progress is only ever changed by the upload (or move)
+        phase, never by discovery."""
         now = _now()
         self._conn.execute(
             """
-            INSERT OR IGNORE INTO discovered
+            INSERT INTO discovered
                 (source_id, source_kind, name, mime_type, size, md5, sha256,
                  programme, dest_subpath, status, discovered_at, updated_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?)
+            ON CONFLICT(source_id) DO UPDATE SET
+                name = excluded.name,
+                mime_type = excluded.mime_type,
+                size = excluded.size,
+                md5 = excluded.md5,
+                sha256 = COALESCE(discovered.sha256, excluded.sha256),
+                programme = excluded.programme,
+                dest_subpath = excluded.dest_subpath,
+                updated_at = excluded.updated_at
             """,
             (source_id, source_kind, name, mime_type, size, md5, sha256,
              programme, dest_subpath, now, now),

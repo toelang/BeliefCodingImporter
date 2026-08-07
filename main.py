@@ -213,9 +213,41 @@ def _show_plan(service, db):
     print("\n" + report)
     log.info("Plan also written to %s", config.PLAN_REPORT_FILE.name)
     log.info(
-        "Nothing has been uploaded or created in Google Drive. "
+        "Nothing has been uploaded, moved, or created in Google Drive. "
         "Review the plan above, then run 'python main.py --execute' to import it."
     )
+
+
+def _move_phase(service, db, csv_logger, progress):
+    """Relocate files an earlier run already uploaded, but whose correct
+    programme folder has since changed (e.g. after a grouping-logic or
+    config fix). This is a Drive-side move - no download/re-upload, and
+    never touches an already-correct file."""
+    moves = plan_report.find_pending_moves(db)
+    if not moves:
+        return
+
+    log.info("Reorganising %d already-imported file(s) into their corrected folders...", len(moves))
+    root_id = drive_uploader.resolve_folder_id_from_url(config.DESTINATION_FOLDER_URL)
+
+    for row, new_path in moves:
+        programme = row["programme"]
+        dest_subpath = row["dest_subpath"] or ""
+        old_path = row["dest_path"]
+        try:
+            path_segments = ([programme] if programme else []) + (
+                dest_subpath.split("/") if dest_subpath else []
+            )
+            parent_id = drive_uploader.ensure_path(service, db, root_id, path_segments)
+            drive_uploader.move_file(service, row["dest_file_id"], parent_id)
+            db.update_status(row["source_id"], "uploaded", dest_path=new_path)
+            csv_logger.log("moved", name=row["name"], source_id=row["source_id"], programme=programme or "",
+                            dest_path=new_path, reason=f"reorganised from: {old_path}")
+            log.info("Moved: %s -> %s", old_path, new_path)
+        except InaccessibleError as exc:
+            log.warning("Could not move %s: %s", row["name"], exc)
+        except Exception:
+            log.exception("Unexpected error moving %s", row["name"])
 
 
 def _upload_phase(service, db, csv_logger, progress):
@@ -259,6 +291,7 @@ def run(execute: bool):
             _show_plan(service, db)
             return
 
+        _move_phase(service, db, csv_logger, progress)
         _upload_phase(service, db, csv_logger, progress)
 
     except KeyboardInterrupt:

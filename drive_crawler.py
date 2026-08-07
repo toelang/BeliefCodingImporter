@@ -28,6 +28,13 @@ Database.mark_visited) both to avoid infinite loops from shortcuts and to
 avoid redundant work when the same folder is reachable from more than one
 link. Individual files are de-duplicated later, at upload time, using
 duplicate_detector.py.
+
+Some PDFs link directly to many individual files with no containing Drive
+folder at all - the grouping only exists in how the PDF lays them out.
+When that happens (a link would otherwise land unfoldered at the
+destination root), config.FILE_PROGRAMME_OVERRIDES and
+config.PDF_PROGRAMME_DEFAULTS step in - see the comments in config.py for
+why there are two separate mechanisms rather than one.
 """
 
 import logging
@@ -52,6 +59,23 @@ def is_wrapper_folder(name: str) -> bool:
 
 def apply_rename(name: str) -> str:
     return _RENAME_MAP.get((name or "").lower(), name)
+
+
+def _normalize_key(s: str) -> str:
+    return "".join(ch for ch in (s or "").lower() if ch.isalnum())
+
+
+def _pdf_default_programme(source_label: str):
+    """For a PDF that's entirely about one programme (see
+    config.PDF_PROGRAMME_DEFAULTS), return that programme's name. Returns
+    None for links from config.py or from a PDF with no matching entry."""
+    key = _normalize_key(source_label)
+    if not key:
+        return None
+    for needle, programme in config.PDF_PROGRAMME_DEFAULTS.items():
+        if needle in key:
+            return programme
+    return None
 
 
 def _enter_folder(db, progress, folder_id) -> bool:
@@ -82,7 +106,23 @@ def _resolve_shortcut(service, meta, depth: int = 0):
     return _resolve_shortcut(service, target_meta, depth + 1)
 
 
-def _emit(db, progress, meta, programme, dest_subpath):
+def _emit(db, progress, meta, programme, dest_subpath, source_label):
+    """Record a discovered file. Drive folder structure (programme/
+    dest_subpath as already computed by the caller) always wins when it
+    exists. Only for a link that would otherwise land unfoldered at the
+    destination root (programme is None) do the config-driven overrides
+    below get a say - first an exact per-file override, then a per-PDF
+    default - since a real Drive folder is always the more specific and
+    authoritative signal."""
+    if programme is None:
+        override = config.FILE_PROGRAMME_OVERRIDES.get(meta["name"])
+        if override:
+            programme, dest_subpath = override, ""
+        else:
+            pdf_default = _pdf_default_programme(source_label)
+            if pdf_default:
+                programme, dest_subpath = pdf_default, ""
+
     size = meta.get("size")
     size = int(size) if size not in (None, "") else None
     db.add_discovered(
@@ -164,18 +204,19 @@ def process_root_from_metadata(service, db, progress, meta, index_pdf_names, sou
 
         if len(subtree) == 1:
             _, file_meta = subtree[0]
-            _emit(db, progress, file_meta, programme=None, dest_subpath="")
+            _emit(db, progress, file_meta, programme=None, dest_subpath="", source_label=source_label)
         else:
             programme_name = apply_rename(name)
             progress.set_current_programme(programme_name)
             for path, file_meta in subtree:
-                _emit(db, progress, file_meta, programme=programme_name, dest_subpath="/".join(path))
+                _emit(db, progress, file_meta, programme=programme_name, dest_subpath="/".join(path),
+                      source_label=source_label)
 
     else:
         if resolved["name"].lower() in index_pdf_names:
             log.info("Skipping index PDF also found on Drive: %s", resolved["name"])
             return
-        _emit(db, progress, resolved, programme=None, dest_subpath="")
+        _emit(db, progress, resolved, programme=None, dest_subpath="", source_label=source_label)
 
 
 def process_root_from_url(service, db, progress, url, source_label, index_pdf_names):

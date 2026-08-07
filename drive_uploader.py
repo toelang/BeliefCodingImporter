@@ -203,6 +203,26 @@ def find_existing_in_destination(service, parent_id: str, name: str, size):
     return None
 
 
+def move_file(service, file_id: str, new_parent_id: str) -> dict:
+    """Move an already-uploaded destination file to a different parent
+    folder. A metadata-only operation - no data is downloaded or
+    re-uploaded, so this is safe and cheap to use for reorganising files
+    that were placed somewhere else by an earlier run under older logic."""
+    current = get_file_metadata(service, file_id, fields="id, parents")
+    old_parents = ",".join(current.get("parents") or [])
+
+    def _move():
+        return service.files().update(
+            fileId=file_id,
+            addParents=new_parent_id,
+            removeParents=old_parents,
+            fields="id, parents",
+            supportsAllDrives=True,
+        ).execute()
+
+    return with_retry(f"move file {file_id}", _move)
+
+
 # --------------------------------------------------------------------------
 # Download (source -> local temp file)
 # --------------------------------------------------------------------------

@@ -215,6 +215,61 @@ you'd also want to clear that out manually first to avoid duplicates).
   present in your local `PDFs/` folder - i.e. the index PDFs themselves,
   even if a copy of one turns up while crawling Drive.
 
+### When a PDF links straight to individual files, not a folder
+
+Several of the source PDFs (Reiki 1, Reiki 2, the 46-Day Launch
+Programme, and several sections inside the two bundle PDFs) link directly
+to dozens of individual files with **no Drive folder holding them
+together at all** - the relationship only exists in how the PDF lays
+them out, which Drive has no record of. Since folder-based grouping
+has nothing to go on there, two config-driven mechanisms fill the gap
+(see the comments above them in `config.py` for the full reasoning):
+
+- **`PDF_PROGRAMME_DEFAULTS`** - for a PDF that's entirely about one
+  programme (matched loosely against the PDF's filename), every link in
+  it defaults to that programme. This is what correctly groups Reiki 1,
+  Reiki 2, and the 46-Day Launch Programme even though each is just a
+  flat list of unrelated individual file links.
+- **`FILE_PROGRAMME_OVERRIDES`** - for the two bundle PDFs (Pay Monthly
+  Bonuses, Pay in Full Bonuses), a per-PDF default isn't safe: some
+  sections there are one cohesive programme (Money Mindset, Confidence
+  Masterclass, Business Coaching, Business & Marketing Blueprint,
+  Manifestation Coding), while others are just a category heading
+  loosely grouping many unrelated one-off bonuses that are correctly
+  meant to stay separate (e.g. everything under "Spiritual Development"
+  in Pay in Full Bonuses - these already work correctly via their own
+  individual Drive folders and should **not** be merged together). That
+  distinction isn't reliably detectable from PDF layout alone, so it's
+  made explicit, keyed by the exact original filename, built directly
+  from an actual discovered file list.
+
+Both only apply to a link that would otherwise land unfoldered at the
+destination root - a real Drive folder, when one exists, always wins.
+
+**One flagged uncertainty:** `Business Strategy.mp4` wasn't confidently
+mapped to a specific programme (it could plausibly belong to either "6
+Steps to 6 Figures" or "Business Coaching Programme" based on the PDF
+text, and the filename alone doesn't disambiguate it). It's deliberately
+left ungrouped at the destination root rather than guessed at - add a
+`FILE_PROGRAMME_OVERRIDES` entry for it once you've checked the video
+itself, if you'd like it filed under a programme folder.
+
+If a future plan shows something that should be grouped but isn't (or
+vice versa), add or adjust an entry in `config.py` and re-run the plan -
+no code changes needed.
+
+### Reorganising files an earlier run already uploaded
+
+Because `add_discovered()` refreshes a file's computed programme/path on
+every re-crawl, fixing the grouping logic above (or editing the override
+tables) takes effect immediately for files not yet uploaded - and for
+files an *earlier* run already placed in the destination, `--execute`
+detects the mismatch and performs a Drive-side **move** (metadata only,
+no download/re-upload, no duplicate) rather than leaving them stranded in
+the old location. Plan mode shows exactly which files this applies to
+under "ALREADY-IMPORTED FILES THAT WILL BE MOVED" before you approve
+anything.
+
 ## Duplicate detection
 
 Applied in this order, exactly as specified:

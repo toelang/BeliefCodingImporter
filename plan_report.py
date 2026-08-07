@@ -28,11 +28,29 @@ def compute_dest_path(programme, dest_subpath, name):
 def _status_marker(status):
     return {
         "uploaded": " [already imported]",
+        "will_move": " [already imported - will be moved here]",
         "duplicate": " [duplicate - was skipped]",
         "planned_duplicate": " [duplicate - will be skipped]",
         "inaccessible": " [inaccessible - previously failed]",
         "error": " [previous error - will be retried]",
     }.get(status, "")
+
+
+def find_pending_moves(db):
+    """Rows already uploaded in a past run whose freshly recomputed
+    destination (after this run's crawl) no longer matches where the file
+    actually is. Re-crawling always recomputes organisation, so this
+    surfaces whenever grouping logic or config changes after some files
+    were already imported. --execute performs these as a Drive-side move
+    (metadata only) rather than a re-upload."""
+    moves = []
+    for row in db.iter_all_discovered():
+        if row["status"] != "uploaded":
+            continue
+        new_path = compute_dest_path(row["programme"], row["dest_subpath"] or "", row["name"])
+        if row["dest_path"] and new_path != row["dest_path"]:
+            moves.append((row, new_path))
+    return moves
 
 
 def build_plan(db):
@@ -48,6 +66,7 @@ def build_plan(db):
       - stats: summary counts for the report header.
     """
     predictions = duplicate_detector.simulate_pending_duplicates(db)
+    moves_by_source_id = {row["source_id"]: new_path for row, new_path in find_pending_moves(db)}
 
     root_files = []
     programmes = {}
@@ -59,6 +78,7 @@ def build_plan(db):
     duplicates = 0
     inaccessible = 0
     errors = 0
+    will_move = 0
 
     for row in db.iter_all_discovered():
         total_files += 1
@@ -72,9 +92,14 @@ def build_plan(db):
             if would_dup:
                 status = "planned_duplicate"
                 reason = dup_reason
+        elif status == "uploaded" and row["source_id"] in moves_by_source_id:
+            status = "will_move"
+            reason = f"currently at: {row['dest_path']}"
 
         if status == "uploaded":
             already_uploaded += 1
+        elif status == "will_move":
+            will_move += 1
         elif status in ("duplicate", "planned_duplicate"):
             duplicates += 1
         elif status == "inaccessible":
@@ -105,10 +130,11 @@ def build_plan(db):
         "root_level_files": len(root_files),
         "total_size": total_size,
         "already_uploaded": already_uploaded,
+        "will_move": will_move,
         "duplicates": duplicates,
         "inaccessible": inaccessible,
         "errors": errors,
-        "pending": total_files - already_uploaded - duplicates - inaccessible - errors,
+        "pending": total_files - already_uploaded - will_move - duplicates - inaccessible - errors,
     }
     return root_files, programmes, stats, all_files
 
@@ -142,15 +168,32 @@ def render_plan_report(root_files, programmes, stats, db, destination_folder_nam
     )
     lines.append(
         f"  Will be uploaded:                   {stats['pending']}\n"
-        f"  Already imported in a previous run: {stats['already_uploaded']}\n"
+        f"  Already imported, staying put:      {stats['already_uploaded']}\n"
+        f"  Already imported, will be moved:    {stats['will_move']}\n"
         f"  Duplicates (will be skipped):       {stats['duplicates']}\n"
         f"  Inaccessible:                       {stats['inaccessible']}\n"
         f"  Previous errors (will retry):       {stats['errors']}"
     )
     lines.append("")
-    lines.append("NOTHING HAS BEEN UPLOADED OR CREATED IN GOOGLE DRIVE YET.")
+    lines.append("NOTHING WILL BE UPLOADED, MOVED, OR CREATED IN GOOGLE DRIVE UNTIL YOU RUN --execute.")
     lines.append("Review the structure below. Re-run with --execute once you approve it.")
     lines.append("=" * 78)
+
+    moves = find_pending_moves(db)
+    if moves:
+        lines.append("")
+        lines.append("=" * 78)
+        lines.append(f"ALREADY-IMPORTED FILES THAT WILL BE MOVED ({len(moves)})")
+        lines.append("-" * 78)
+        lines.append("These were uploaded by an earlier run before this grouping fix. They will")
+        lines.append("be relocated in place (a metadata-only Drive move, not a re-upload) so")
+        lines.append("they end up in the same corrected folders as everything else.")
+        lines.append("")
+        for row, new_path in sorted(moves, key=lambda m: m[1].lower()):
+            lines.append(f"  {row['dest_path']}")
+            lines.append(f"    -> {new_path}")
+        lines.append("=" * 78)
+
     lines.append("")
     lines.append("FOLDER TREE")
     lines.append("-" * 78)

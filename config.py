@@ -83,6 +83,93 @@ WRAPPER_FOLDER_NAMES = [
 PROGRAMME_RENAMES = {}
 
 # --------------------------------------------------------------------------
+# Programme grouping for links with no containing Drive folder
+# --------------------------------------------------------------------------
+#
+# Some PDFs link straight to dozens of individual files with no shared
+# Drive folder holding them together - the relationship only exists in
+# how the PDF lays them out, which Drive itself has no record of. Two
+# mechanisms below recover that grouping. Both only apply to a link that
+# would otherwise land unfoldered at the destination root (i.e. Drive
+# folder structure, when it exists, always wins).
+#
+# 1. PDF_PROGRAMME_DEFAULTS: for a PDF that is entirely about ONE
+#    programme (e.g. the whole "Reiki 1" PDF), every link found in it
+#    defaults to that programme. Matching is done against the PDF's
+#    filename with all non-letters/digits stripped and lowercased, so
+#    "Belief Coding® Reiki 1 pdf.pdf" and "Belief_Coding__Reiki_1.pdf"
+#    both match the key "reiki1". Add an entry here for any future
+#    single-programme index PDF.
+PDF_PROGRAMME_DEFAULTS = {
+    "reiki1": "Reiki 1",
+    "reiki2": "Reiki 2",
+    "46daylaunchprogramme": "46 Day Launch Programme",
+    "46daylaunch": "46 Day Launch Programme",
+}
+
+# 2. FILE_PROGRAMME_OVERRIDES: for bundle PDFs (Pay Monthly Bonuses, Pay
+#    in Full Bonuses) that mix several distinct programmes together in
+#    one document, a per-PDF default isn't safe - some of their sections
+#    are genuinely one cohesive programme (Money Mindset, Confidence
+#    Masterclass, ...) while others are a category heading loosely
+#    grouping many unrelated one-off bonuses that should stay separate.
+#    That distinction isn't reliably detectable from PDF layout alone, so
+#    it's made explicit here instead, keyed by the exact original
+#    filename as it appears in Drive (filenames are never renamed, so
+#    this stays stable). Built directly from the discovered file list;
+#    if a future run's plan shows something that should be grouped but
+#    isn't (or vice versa), add/adjust an entry here and re-run the plan.
+FILE_PROGRAMME_OVERRIDES = {
+    # Money Mindset
+    "Money Mindset - Module 1.mp4": "Money Mindset",
+    "Money Mindset - Module 2.mp4": "Money Mindset",
+    "Money Mindset - Module 3.mp4": "Money Mindset",
+    "Money Mindset - Module 4.mp4": "Money Mindset",
+    "Money Mindset - Module 5.mp4": "Money Mindset",
+    "Money Mindset - Module 6.mp4": "Money Mindset",
+    "Money Mindset - Module 7.mp4": "Money Mindset",
+    "Money Mindset - Module 8.mp4": "Money Mindset",
+    "Money_Mindset.pdf": "Money Mindset",
+    # Business & Marketing Blueprint
+    "Customer Avatar.mp4": "Business & Marketing Blueprint",
+    "Business & Marketing Blueprint.mp4": "Business & Marketing Blueprint",
+    "Tone of Voice.mp4": "Business & Marketing Blueprint",
+    "Building Your Tribe.mp4": "Business & Marketing Blueprint",
+    "Facebook® Groups.mp4": "Business & Marketing Blueprint",
+    "Instagram®.mp4": "Business & Marketing Blueprint",
+    "Facebook® Growth.mp4": "Business & Marketing Blueprint",
+    "What Are You Selling.mp4": "Business & Marketing Blueprint",
+    "Your Launch.mp4": "Business & Marketing Blueprint",
+    "Launch Format.mp4": "Business & Marketing Blueprint",
+    # Confidence Masterclass
+    "Powering through to become CONFIDENT AF! The Masterclass.mp4": "Confidence Masterclass",
+    "Increase Your Self Confidence & Self Esteem.mp4": "Confidence Masterclass",
+    "Powering through to become CONFIDENT AF! Confidence!.mp4": "Confidence Masterclass",
+    "Self_-_Confidence_and_Self_-_Esteem.pdf": "Confidence Masterclass",
+    "COFIDENCE_11_STEPS.pdf": "Confidence Masterclass",
+    "Confidence Coaching": "Confidence Masterclass",
+    # Business Coaching Programme (6-week series + Business Day sessions + downloads)
+    "Business Coaching - Week One - Alignment.mp4": "Business Coaching Programme",
+    "Business Coaching - Week Two - Becoming Magnetic.mp4": "Business Coaching Programme",
+    "Business Coaching - Week Three - Your Tribe.mp4": "Business Coaching Programme",
+    "Business Coaching - Week Four - Planning a Launch.mp4": "Business Coaching Programme",
+    "Business Coaching - Week Five - Passive Income Masterclass.mp4": "Business Coaching Programme",
+    "Business Coaching - Week Six - Facebook® Ads.mp4": "Business Coaching Programme",
+    "Business Day - Day 1 Replay.mp4": "Business Coaching Programme",
+    "Business Day - Where Are You Now.mp4": "Business Coaching Programme",
+    "Business Day - Your Goal.mp4": "Business Coaching Programme",
+    "Business Day - Your Invincible Offer.mp4": "Business Coaching Programme",
+    "Business Day - Your Launch.mp4": "Business Coaching Programme",
+    "Business Day - Growing Your Audience.mp4": "Business Coaching Programme",
+    "business_coaching.pdf": "Business Coaching Programme",
+    "Business_Coaching_Week_3-_Your_Tribe.pdf": "Business Coaching Programme",
+    "CFE_Social_Media_The_easy_way_INTERACTIVE_1_1_.pdf": "Business Coaching Programme",
+    # Manifestation Coding
+    "Manifestation_Coding.pdf": "Manifestation Coding",
+    "Manifesting Coding.mp4": "Manifestation Coding",
+}
+
+# --------------------------------------------------------------------------
 # Local working files (created automatically, safe to delete to start over)
 # --------------------------------------------------------------------------
 
