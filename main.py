@@ -2,7 +2,12 @@
 Belief Coding Resource Importer - entry point.
 
 Usage:
-    python main.py
+    python main.py             Plan mode (default, safe): crawl Drive
+                                read-only and print/save the exact
+                                destination structure that WOULD be
+                                created. Uploads or creates nothing.
+    python main.py --execute   Actually create destination folders and
+                                upload files, using the same crawl result.
 
 What it does, in order:
   1. Authenticate with Google Drive (first run opens a browser; after that
@@ -10,16 +15,21 @@ What it does, in order:
   2. Parse every PDF in config.PDF_FOLDER for Google Drive links.
   3. Crawl every link found (plus config.ADDITIONAL_DRIVE_FOLDERS)
      recursively, flattening marketing wrapper folders and working out
-     where each file should land in the destination.
-  4. Upload every newly discovered file that isn't a duplicate, creating
-     destination folders as needed.
-  5. Write import_log.csv and print a summary.
+     where each file should land in the destination. This step never
+     writes to Google Drive.
+  4. In plan mode: print the proposed structure and save it to
+     import_plan.txt, then stop - nothing is uploaded.
+     In --execute mode: upload every newly discovered file that isn't a
+     duplicate, creating destination folders as needed.
+  5. Write import_log.csv and print a summary (execute mode only).
 
 Safe to interrupt (Ctrl+C) and re-run at any time - already-uploaded
 files are never re-uploaded, and the destination folder structure already
-created is reused rather than duplicated.
+created is reused rather than duplicated. Re-running in plan mode after
+an --execute run will show already-imported files marked accordingly.
 """
 
+import argparse
 import logging
 import shutil
 import sys
@@ -164,7 +174,68 @@ def _safe_filename(name: str) -> str:
     return "".join(c for c in name if c.isalnum() or c in " ._-")[:150] or "file"
 
 
-def run():
+def _crawl_phase(service, db, progress):
+    """Read the index PDFs and crawl Drive. Purely read-only against
+    Google Drive - never creates a folder or uploads a file. Safe to run
+    as often as you like, including just to preview the plan."""
+    log.info("Reading index PDFs from %s ...", config.PDF_FOLDER)
+    index_pdf_names = pdf_parser.index_pdf_filenames(config.PDF_FOLDER)
+    pdf_links = pdf_parser.collect_all_links(config.PDF_FOLDER)
+    log.info("Found %d unique Drive link(s) across %d PDF(s).", len(pdf_links), len(index_pdf_names))
+
+    log.info("Crawling Google Drive (this can take a while for large folders)...")
+    drive_crawler.crawl(
+        service, db, progress,
+        pdf_links=pdf_links,
+        additional_folder_urls=config.ADDITIONAL_DRIVE_FOLDERS,
+        index_pdf_names=index_pdf_names,
+    )
+    progress.render(final=True)
+    log.info("Crawl complete. %d file(s) discovered so far.", progress.files_discovered)
+
+
+def _show_plan(service, db):
+    """Build and print/save the proposed destination structure. Makes no
+    changes to Google Drive whatsoever - not even folder creation."""
+    import plan_report
+
+    root_id = drive_uploader.resolve_folder_id_from_url(config.DESTINATION_FOLDER_URL)
+    try:
+        dest_meta = drive_uploader.get_file_metadata(service, root_id, fields="id, name")
+        dest_name = dest_meta.get("name")
+    except InaccessibleError as exc:
+        log.error("Could not read the destination folder itself: %s", exc)
+        dest_name = None
+
+    root_files, programmes, stats = plan_report.build_plan(db)
+    report = plan_report.render_plan_report(root_files, programmes, stats, db, dest_name)
+
+    config.PLAN_REPORT_FILE.write_text(report, encoding="utf-8")
+    print("\n" + report)
+    log.info("Plan also written to %s", config.PLAN_REPORT_FILE.name)
+    log.info(
+        "Nothing has been uploaded or created in Google Drive. "
+        "Review the plan above, then run 'python main.py --execute' to import it."
+    )
+
+
+def _upload_phase(service, db, csv_logger, progress):
+    pending_rows = list(db.iter_pending())
+    log.info("Uploading %d pending file(s)...", len(pending_rows))
+
+    for i, row in enumerate(pending_rows):
+        _upload_one(service, db, csv_logger, progress, row)
+        remaining = len(pending_rows) - (i + 1)
+        progress.render(remaining_files=remaining)
+
+    progress.render(final=True)
+    counts = db.counts()
+    log.info(progress.summary())
+    log.info("Status breakdown: %s", counts)
+    log.info("Full detail written to %s", config.LOG_CSV_FILE.name)
+
+
+def run(execute: bool):
     setup_logging()
     problems = _validate_config()
     if problems:
@@ -173,6 +244,8 @@ def run():
         sys.exit(1)
 
     log.info("Belief Coding Resource Importer")
+    if not execute:
+        log.info("Running in PLAN mode - Drive will be crawled (read-only) but nothing will be uploaded.")
     log.info("Authenticating with Google Drive...")
     service = drive_uploader.get_drive_service()
 
@@ -181,34 +254,13 @@ def run():
     progress = ProgressReporter()
 
     try:
-        log.info("Reading index PDFs from %s ...", config.PDF_FOLDER)
-        index_pdf_names = pdf_parser.index_pdf_filenames(config.PDF_FOLDER)
-        pdf_links = pdf_parser.collect_all_links(config.PDF_FOLDER)
-        log.info("Found %d unique Drive link(s) across %d PDF(s).", len(pdf_links), len(index_pdf_names))
+        _crawl_phase(service, db, progress)
 
-        log.info("Crawling Google Drive (this can take a while for large folders)...")
-        drive_crawler.crawl(
-            service, db, progress,
-            pdf_links=pdf_links,
-            additional_folder_urls=config.ADDITIONAL_DRIVE_FOLDERS,
-            index_pdf_names=index_pdf_names,
-        )
-        progress.render(final=True)
-        log.info("Crawl complete. %d file(s) discovered so far.", progress.files_discovered)
+        if not execute:
+            _show_plan(service, db)
+            return
 
-        pending_rows = list(db.iter_pending())
-        log.info("Uploading %d pending file(s)...", len(pending_rows))
-
-        for i, row in enumerate(pending_rows):
-            _upload_one(service, db, csv_logger, progress, row)
-            remaining = len(pending_rows) - (i + 1)
-            progress.render(remaining_files=remaining)
-
-        progress.render(final=True)
-        counts = db.counts()
-        log.info(progress.summary())
-        log.info("Status breakdown: %s", counts)
-        log.info("Full detail written to %s", config.LOG_CSV_FILE.name)
+        _upload_phase(service, db, csv_logger, progress)
 
     except KeyboardInterrupt:
         log.warning("\nInterrupted by user. Progress has been saved - re-run main.py to resume.")
@@ -219,5 +271,19 @@ def run():
             shutil.rmtree(config.TEMP_DIR, ignore_errors=True)
 
 
+def _parse_args():
+    parser = argparse.ArgumentParser(
+        description="Belief Coding Resource Importer. By default, only crawls Drive and "
+                     "shows the proposed destination structure - nothing is uploaded."
+    )
+    parser.add_argument(
+        "--execute", action="store_true",
+        help="Actually create destination folders and upload files. Without this flag, "
+             "the importer only crawls and prints/saves the proposed structure.",
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    run()
+    args = _parse_args()
+    run(execute=args.execute)

@@ -3,6 +3,12 @@ REM Belief Coding Resource Importer - Windows launcher
 REM Creates a virtual environment on first run, installs dependencies,
 REM then runs the importer. Safe to double-click; re-run any time to
 REM resume an interrupted import.
+REM
+REM By default this only PLANS the import - it crawls Drive and shows you
+REM the exact structure it would create, without uploading anything.
+REM Once you've reviewed import_plan.txt and are happy with it, run:
+REM     run.bat --execute
+REM to actually create the folders and upload the files.
 
 setlocal
 
@@ -43,10 +49,14 @@ if not exist "PDFs" (
 )
 
 echo.
-echo Starting import...
+if "%~1"=="--execute" (
+    echo Starting import - files WILL be uploaded...
+) else (
+    echo Starting plan-only run - nothing will be uploaded...
+)
 echo.
-"venv\Scripts\python.exe" main.py
+"venv\Scripts\python.exe" main.py %*
 
 echo.
-echo Import run finished. See import_log.csv for full details.
+echo Run finished. See import_plan.txt (plan mode) or import_log.csv (--execute) for details.
 pause

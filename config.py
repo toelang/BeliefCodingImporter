@@ -90,6 +90,7 @@ CREDENTIALS_FILE = PROJECT_ROOT / "credentials.json"
 TOKEN_FILE = PROJECT_ROOT / "token.json"
 DATABASE_FILE = PROJECT_ROOT / "import_state.db"
 LOG_CSV_FILE = PROJECT_ROOT / "import_log.csv"
+PLAN_REPORT_FILE = PROJECT_ROOT / "import_plan.txt"
 DEBUG_LOG_FILE = PROJECT_ROOT / "debug.log"
 TEMP_DIR = PROJECT_ROOT / "_temp_downloads"
 

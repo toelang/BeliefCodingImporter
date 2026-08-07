@@ -101,7 +101,7 @@ def _format_eta(seconds):
     return f"{secs}s"
 
 
-def _format_bytes(n):
+def format_bytes(n):
     if not n:
         return "0 B"
     for unit in ("B", "KB", "MB", "GB", "TB"):
@@ -166,7 +166,7 @@ class ProgressReporter:
         line = (
             f"Folders scanned: {self.folders_scanned} | "
             f"Files discovered: {self.files_discovered} | "
-            f"Uploaded: {self.files_uploaded} ({_format_bytes(self.bytes_uploaded)}) | "
+            f"Uploaded: {self.files_uploaded} ({format_bytes(self.bytes_uploaded)}) | "
             f"Duplicates skipped: {self.duplicates_skipped} | "
             f"Inaccessible/errors: {self.inaccessible + self.errors} | "
             f"Programme: {self.current_programme} | "
@@ -185,7 +185,7 @@ class ProgressReporter:
             "=== Import summary ===\n"
             f"Folders scanned:      {self.folders_scanned}\n"
             f"Files discovered:     {self.files_discovered}\n"
-            f"Files uploaded:       {self.files_uploaded} ({_format_bytes(self.bytes_uploaded)})\n"
+            f"Files uploaded:       {self.files_uploaded} ({format_bytes(self.bytes_uploaded)})\n"
             f"Duplicates skipped:   {self.duplicates_skipped}\n"
             f"Inaccessible/errors:  {self.inaccessible + self.errors}\n"
             f"Elapsed time:         {_format_eta(elapsed)}\n"

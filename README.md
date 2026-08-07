@@ -85,7 +85,12 @@ pip install -r requirements.txt
   - `PROGRAMME_RENAMES` - optional, only needed if a source folder's name
     in Drive doesn't match what you want it called in the destination.
 
-## 4. Run it
+## 4. Review the plan first (default, safe)
+
+Running the importer with no arguments **never uploads or creates
+anything in Google Drive**. It authenticates, crawls every PDF link and
+every configured folder read-only, then prints the exact destination
+structure it proposes and saves it to `import_plan.txt`:
 
 ```
 run.bat
@@ -101,7 +106,42 @@ The first run opens a browser window asking you to sign in to Google and
 approve access - after that, `token.json` is reused automatically and you
 won't be asked again unless it's revoked or deleted.
 
-While it runs you'll see a single live-updating status line:
+The plan looks like this:
+
+```
+(destination root)/
+    Working with Your Spirit Animal.mp4  (240.1 MB)
+    Reiki 1/
+        Reiki Intro.mp4  (190.7 MB)
+        Workbook.pdf  (1.9 MB)
+    Money Mindset/
+        Module 1 - Money Mindset.mp4  (150.2 MB)
+        ...
+```
+
+along with a summary of how many files/programmes were found, and a list
+of any broken or inaccessible links. Check this over carefully - it's the
+exact structure that will be created.
+
+## 5. Approve and run the real import
+
+Once you're happy with `import_plan.txt`, run it again with `--execute`
+to actually create the folders and upload the files:
+
+```
+run.bat --execute
+```
+
+or:
+
+```
+python main.py --execute
+```
+
+This uses the same crawl logic as the plan, so the structure it creates
+will match what you approved (plus anything newly added to the source
+folders since you last checked - re-run the plan first if you want to be
+sure). While it runs you'll see a single live-updating status line:
 
 ```
 Folders scanned: 42 | Files discovered: 310 | Uploaded: 128 (4.2 GB) | Duplicates skipped: 6 | Inaccessible/errors: 2 | Programme: Money Mindset | ETA: 12m 30s
@@ -109,24 +149,29 @@ Folders scanned: 42 | Files discovered: 310 | Uploaded: 128 (4.2 GB) | Duplicate
 
 ## Resuming after an interruption
 
-Just run it again. Discovery (crawling) is cheap and always re-runs so it
-can pick up anything newly added to the source folders, but nothing is
-re-uploaded: every file already imported is recorded in `import_state.db`
-and is skipped automatically. If you ever want to start completely from
-scratch, delete `import_state.db` (this does not touch anything already
-in your destination Drive folder, so you'd also want to clear that out
-manually first to avoid duplicates).
+Just run `python main.py --execute` again. Discovery (crawling) is cheap
+and always re-runs so it can pick up anything newly added to the source
+folders, but nothing is re-uploaded: every file already imported is
+recorded in `import_state.db` and is skipped automatically. If you ever
+want to start completely from scratch, delete `import_state.db` (this
+does not touch anything already in your destination Drive folder, so
+you'd also want to clear that out manually first to avoid duplicates).
 
 ## Output
 
+- **`import_plan.txt`** - the proposed (or, after `--execute`, actual)
+  destination structure, regenerated every run. Files already imported in
+  a previous run are marked `[already imported]` when you re-run the plan.
 - **`import_log.csv`** - one row per file with columns `timestamp, event,
   name, source_id, programme, dest_path, size_bytes, reason`. `event` is
   one of `imported`, `duplicate`, `inaccessible`, or `skipped` (used for
-  broken/unrecognised links and other errors). Check `broken_links` inside
-  `import_state.db` for the full list of links that couldn't be resolved,
-  including which PDF/page each one came from.
+  broken/unrecognised links and other errors). Only written during
+  `--execute` runs. Check `broken_links` inside `import_state.db` for the
+  full list of links that couldn't be resolved, including which PDF/page
+  each one came from (also listed at the bottom of `import_plan.txt`).
 - **`debug.log`** - full verbose log, useful for troubleshooting.
-- Your Google Drive destination folder, organised by programme.
+- Your Google Drive destination folder, organised by programme
+  (`--execute` only).
 
 ## How content gets organised
 
@@ -189,13 +234,14 @@ you still end up with a real Google file rather than a flattened export.
 
 ```
 BeliefCodingImporter/
-    main.py                Orchestrates the whole run
+    main.py                Orchestrates the whole run (plan mode by default, --execute to import)
     config.py               All settings live here
     pdf_parser.py            Extracts Drive links from the index PDFs
     drive_crawler.py         Recursive crawl + wrapper flattening + programme rules
     drive_uploader.py        OAuth, folder creation, download/upload, retries
     duplicate_detector.py    The three-tier duplicate check
     database.py              SQLite-backed resumable state
+    plan_report.py           Builds the proposed structure preview (import_plan.txt)
     logger.py                CSV logging + live progress display
     requirements.txt
     run.bat

@@ -106,6 +106,23 @@ class Database:
         for row in cur:
             yield row
 
+    def iter_all_discovered(self):
+        """Every discovered file, in a stable order suitable for building
+        a human-readable tree (grouped by programme, then by sub-path)."""
+        cur = self._conn.execute(
+            "SELECT * FROM discovered "
+            "ORDER BY COALESCE(programme, ''), dest_subpath, name COLLATE NOCASE"
+        )
+        for row in cur:
+            yield row
+
+    def iter_broken_links(self):
+        cur = self._conn.execute(
+            "SELECT * FROM broken_links ORDER BY source_pdf, url"
+        )
+        for row in cur:
+            yield row
+
     def iter_uploaded_with_checksum(self):
         cur = self._conn.execute(
             "SELECT * FROM discovered WHERE status = 'uploaded' AND (sha256 IS NOT NULL OR md5 IS NOT NULL)"
