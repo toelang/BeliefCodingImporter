@@ -306,6 +306,18 @@ BeliefCodingImporter/
 
 ## Troubleshooting
 
+- **"NO PDFs FOUND" / the plan is missing almost everything** - the `PDFs/`
+  folder is empty. PDFs are deliberately excluded from git (they're your
+  personal files, not project code), so if you cloned/downloaded this
+  project fresh, you must manually copy your index PDFs into `PDFs/`
+  yourself before running. The console makes this hard to miss with a
+  banner warning, and `import_plan.txt` will only reflect
+  `config.ADDITIONAL_DRIVE_FOLDERS` until you do.
+- **A filename looks like "Copy of Part 1.mp4"** - this is not something
+  the importer does. Filenames are always preserved exactly as they are
+  on the source file in Drive; if a source file already has "Copy of" in
+  its name (e.g. from someone using Drive's "Make a Copy" before it was
+  linked), that name is carried through as-is.
 - **"credentials.json not found"** - see step 1 above.
 - **A link is reported inaccessible** - the signed-in Google account
   doesn't have access to that file/folder. Check `import_state.db`'s

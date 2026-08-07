@@ -139,7 +139,13 @@ def collect_all_links(pdf_folder: Path = config.PDF_FOLDER) -> List[DriveLink]:
     pdf_folder = Path(pdf_folder)
     pdf_paths = sorted(pdf_folder.glob("*.pdf"))
     if not pdf_paths:
-        log.warning("No PDFs found in %s", pdf_folder)
+        log.warning("=" * 78)
+        log.warning("NO PDFs FOUND in %s", pdf_folder)
+        log.warning("Copy your index PDFs (Pay in Full Bonuses, Pay Monthly Bonuses, Reiki 1,")
+        log.warning("Reiki 2, 46 Day Launch Programme, etc.) into that folder, then re-run.")
+        log.warning("Continuing with only config.ADDITIONAL_DRIVE_FOLDERS for now - the plan")
+        log.warning("below will be incomplete until you add the PDFs.")
+        log.warning("=" * 78)
 
     all_links: List[DriveLink] = []
     seen_urls = set()
