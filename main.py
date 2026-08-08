@@ -35,27 +35,49 @@ import shutil
 import sys
 import time
 import uuid
+from pathlib import Path
 
 import config
 import drive_crawler
 import drive_uploader
 import duplicate_detector
+import local_uploader
 import pdf_parser
 import plan_report
 from database import Database
 from drive_uploader import InaccessibleError
+from local_uploader import LocalStorageError
 from logger import CsvLogger, ProgressReporter, setup_logging
 
 log = logging.getLogger("belief_coding_importer.main")
+
+# InaccessibleError (Drive) and LocalStorageError (local disk) are both
+# "this destination operation failed" - treated the same way everywhere
+# below regardless of which mode is active.
+_DESTINATION_ERRORS = (InaccessibleError, LocalStorageError)
 
 
 def _validate_config():
     problems = []
     if not config.PDF_FOLDER.exists():
         problems.append(f"PDF folder not found: {config.PDF_FOLDER}")
-    if not config.DESTINATION_FOLDER_URL:
+    if config.DESTINATION_MODE not in ("drive", "local"):
+        problems.append(f"config.DESTINATION_MODE must be 'drive' or 'local', not {config.DESTINATION_MODE!r}")
+    elif config.DESTINATION_MODE == "drive" and not config.DESTINATION_FOLDER_URL:
         problems.append("config.DESTINATION_FOLDER_URL is empty")
+    elif config.DESTINATION_MODE == "local" and not config.LOCAL_DESTINATION_FOLDER:
+        problems.append("config.LOCAL_DESTINATION_FOLDER is empty")
     return problems
+
+
+def _local_filename(name: str, native_export: dict) -> str:
+    """A native Google Doc/Sheet/Slide has no file extension in its Drive
+    name (Drive tracks its type via mimeType instead) - add the exported
+    format's extension so it opens correctly as a plain file on disk."""
+    if not native_export:
+        return name
+    ext = native_export["extension"]
+    return name if name.lower().endswith(ext.lower()) else f"{name}{ext}"
 
 
 def _upload_one(service, db, csv_logger, progress, row):
@@ -84,14 +106,19 @@ def _upload_one(service, db, csv_logger, progress, row):
         log.info("Duplicate, skipped: %s (%s)", name, dup.reason)
         return
 
+    is_local = config.DESTINATION_MODE == "local"
+    path_segments = ([programme] if programme else []) + (
+        dest_subpath.split("/") if dest_subpath else []
+    )
+
     # --- work out / create the destination folder ----------------------
     try:
-        root_id = drive_uploader.resolve_folder_id_from_url(config.DESTINATION_FOLDER_URL)
-        path_segments = ([programme] if programme else []) + (
-            dest_subpath.split("/") if dest_subpath else []
-        )
-        parent_id = drive_uploader.ensure_path(service, db, root_id, path_segments)
-    except InaccessibleError as exc:
+        if is_local:
+            dest_dir = local_uploader.ensure_path(config.LOCAL_DESTINATION_FOLDER, path_segments)
+        else:
+            root_id = drive_uploader.resolve_folder_id_from_url(config.DESTINATION_FOLDER_URL)
+            parent_id = drive_uploader.ensure_path(service, db, root_id, path_segments)
+    except _DESTINATION_ERRORS as exc:
         db.update_status(source_id, "error", reason=f"destination folder error: {exc}")
         csv_logger.log("skipped", name=name, source_id=source_id, programme=programme or "",
                         reason=str(exc))
@@ -100,16 +127,21 @@ def _upload_one(service, db, csv_logger, progress, row):
         return
 
     # --- defensive live check against the destination itself ------------
-    live_dup = duplicate_detector.check_against_live_destination(service, parent_id, name, size)
-    if live_dup:
-        db.update_status(source_id, "duplicate", reason=live_dup.reason)
+    if is_local:
+        already_there = local_uploader.find_existing(dest_dir, name, size)
+    else:
+        already_there = duplicate_detector.check_against_live_destination(service, parent_id, name, size)
+    if already_there:
+        reason = already_there.reason if hasattr(already_there, "reason") else \
+            "file with same name/size already present in destination folder"
+        db.update_status(source_id, "duplicate", reason=reason)
         csv_logger.log("duplicate", name=name, source_id=source_id, programme=programme or "",
-                        reason=live_dup.reason, size_bytes=size or "")
+                        reason=reason, size_bytes=size or "")
         progress.duplicate_skipped(size)
         log.info("Duplicate (found already in destination), skipped: %s", name)
         return
 
-    # --- download to a temp file, then upload ----------------------------
+    # --- download to a temp file, then save/upload ----------------------
     config.TEMP_DIR.mkdir(parents=True, exist_ok=True)
     temp_path = config.TEMP_DIR / f"{uuid.uuid4().hex}_{_safe_filename(name)}"
     started = time.time()
@@ -134,12 +166,20 @@ def _upload_one(service, db, csv_logger, progress, row):
                 log.info("Duplicate (content match after download), skipped: %s", name)
                 return
 
-        if native_export:
+        if is_local:
+            final_path = local_uploader.place_file(temp_path, dest_dir, _local_filename(name, native_export))
+            dest_identifier = str(final_path)
+            result_sha256 = None
+        elif native_export:
             uploaded = drive_uploader.upload_as_native(service, temp_path, name, parent_id, mime_type)
+            dest_identifier = uploaded.get("id")
+            result_sha256 = uploaded.get("sha256Checksum")
         else:
             uploaded = drive_uploader.upload_binary(service, temp_path, name, parent_id, mime_type)
+            dest_identifier = uploaded.get("id")
+            result_sha256 = uploaded.get("sha256Checksum")
 
-    except InaccessibleError as exc:
+    except _DESTINATION_ERRORS as exc:
         db.update_status(source_id, "inaccessible", reason=str(exc))
         csv_logger.log("inaccessible", name=name, source_id=source_id, programme=programme or "",
                         reason=str(exc))
@@ -160,15 +200,15 @@ def _upload_one(service, db, csv_logger, progress, row):
     dest_path_str = plan_report.compute_dest_path(programme, dest_subpath, name)
     db.update_status(
         source_id, "uploaded",
-        dest_file_id=uploaded.get("id"),
+        dest_file_id=dest_identifier,
         dest_path=dest_path_str,
-        sha256=uploaded.get("sha256Checksum") or computed_sha256,
+        sha256=result_sha256 or computed_sha256,
     )
     csv_logger.log("imported", name=name, source_id=source_id, programme=programme or "",
                     dest_path=dest_path_str, size_bytes=size or "")
     duration = time.time() - started
     progress.file_uploaded(size or 0, duration)
-    log.info("Uploaded: %s -> %s", name, dest_path_str)
+    log.info("Saved: %s -> %s", name, dest_path_str)
 
 
 def _safe_filename(name: str) -> str:
@@ -195,40 +235,64 @@ def _crawl_phase(service, db, progress):
     log.info("Crawl complete. %d file(s) discovered so far.", progress.files_discovered)
 
 
-def _show_plan(service, db):
-    """Build and print/save the proposed destination structure. Makes no
-    changes to Google Drive whatsoever - not even folder creation."""
+def _destination_description(service):
+    """Header lines for the plan report describing where files will land,
+    and used to sanity-check the destination is reachable before --execute
+    does any real work."""
+    if config.DESTINATION_MODE == "local":
+        folder = Path(config.LOCAL_DESTINATION_FOLDER)
+        exists_note = "already exists" if folder.exists() else "will be created"
+        return [
+            f"Destination: local folder ({exists_note})",
+            f"             {folder}",
+            "If this folder is inside OneDrive/Dropbox/etc., that app uploads",
+            "everything placed here to the cloud automatically.",
+        ]
+
     root_id = drive_uploader.resolve_folder_id_from_url(config.DESTINATION_FOLDER_URL)
     try:
         dest_meta = drive_uploader.get_file_metadata(service, root_id, fields="id, name")
-        dest_name = dest_meta.get("name")
+        dest_name = dest_meta.get("name") or "(destination folder)"
     except InaccessibleError as exc:
         log.error("Could not read the destination folder itself: %s", exc)
-        dest_name = None
+        dest_name = "(destination folder)"
+    return [
+        f"Destination root: {dest_name}",
+        f"                  {config.DESTINATION_FOLDER_URL}",
+    ]
 
+
+def _show_plan(service, db):
+    """Build and print/save the proposed destination structure. Makes no
+    changes to Google Drive or the local destination - not even folder
+    creation."""
     root_files, programmes, stats, all_files = plan_report.build_plan(db)
-    report = plan_report.render_plan_report(root_files, programmes, stats, db, dest_name, all_files)
+    report = plan_report.render_plan_report(
+        root_files, programmes, stats, db, _destination_description(service), all_files
+    )
 
     config.PLAN_REPORT_FILE.write_text(report, encoding="utf-8")
     print("\n" + report)
     log.info("Plan also written to %s", config.PLAN_REPORT_FILE.name)
     log.info(
-        "Nothing has been uploaded, moved, or created in Google Drive. "
+        "Nothing has been saved, moved, or created at the destination. "
         "Review the plan above, then run 'python main.py --execute' to import it."
     )
 
 
 def _move_phase(service, db, csv_logger, progress):
-    """Relocate files an earlier run already uploaded, but whose correct
+    """Relocate files an earlier run already placed, but whose correct
     programme folder has since changed (e.g. after a grouping-logic or
-    config fix). This is a Drive-side move - no download/re-upload, and
-    never touches an already-correct file."""
+    config fix, or after switching DESTINATION_MODE). Never re-downloads
+    or re-uploads a file - just relocates it at the destination."""
     moves = plan_report.find_pending_moves(db)
     if not moves:
         return
 
+    is_local = config.DESTINATION_MODE == "local"
     log.info("Reorganising %d already-imported file(s) into their corrected folders...", len(moves))
-    root_id = drive_uploader.resolve_folder_id_from_url(config.DESTINATION_FOLDER_URL)
+    if not is_local:
+        root_id = drive_uploader.resolve_folder_id_from_url(config.DESTINATION_FOLDER_URL)
 
     for row, new_path in moves:
         programme = row["programme"]
@@ -238,13 +302,18 @@ def _move_phase(service, db, csv_logger, progress):
             path_segments = ([programme] if programme else []) + (
                 dest_subpath.split("/") if dest_subpath else []
             )
-            parent_id = drive_uploader.ensure_path(service, db, root_id, path_segments)
-            drive_uploader.move_file(service, row["dest_file_id"], parent_id)
-            db.update_status(row["source_id"], "uploaded", dest_path=new_path)
+            if is_local:
+                new_dir = local_uploader.ensure_path(config.LOCAL_DESTINATION_FOLDER, path_segments)
+                final_path = local_uploader.move_file(row["dest_file_id"], new_dir, row["name"])
+                db.update_status(row["source_id"], "uploaded", dest_file_id=str(final_path), dest_path=new_path)
+            else:
+                parent_id = drive_uploader.ensure_path(service, db, root_id, path_segments)
+                drive_uploader.move_file(service, row["dest_file_id"], parent_id)
+                db.update_status(row["source_id"], "uploaded", dest_path=new_path)
             csv_logger.log("moved", name=row["name"], source_id=row["source_id"], programme=programme or "",
                             dest_path=new_path, reason=f"reorganised from: {old_path}")
             log.info("Moved: %s -> %s", old_path, new_path)
-        except InaccessibleError as exc:
+        except _DESTINATION_ERRORS as exc:
             log.warning("Could not move %s: %s", row["name"], exc)
         except Exception:
             log.exception("Unexpected error moving %s", row["name"])
@@ -276,7 +345,7 @@ def run(execute: bool):
 
     log.info("Belief Coding Resource Importer")
     if not execute:
-        log.info("Running in PLAN mode - Drive will be crawled (read-only) but nothing will be uploaded.")
+        log.info("Running in PLAN mode - Drive will be crawled (read-only) but nothing will be saved anywhere.")
     log.info("Authenticating with Google Drive...")
     service = drive_uploader.get_drive_service()
 

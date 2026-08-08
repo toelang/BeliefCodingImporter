@@ -29,13 +29,30 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 PDF_FOLDER = PROJECT_ROOT / "PDFs"
 
 # --------------------------------------------------------------------------
-# Output: destination Google Drive folder
+# Output: where imported files are placed
 # --------------------------------------------------------------------------
 
-# This folder must already exist in your Google Drive. Every imported
-# programme/file is placed inside it directly - the importer never
-# creates an extra top-level "Belief Coding" wrapper folder of its own.
+# "drive"  - upload into an existing Google Drive folder (DESTINATION_FOLDER_URL).
+# "local"  - save into a folder on this PC instead (LOCAL_DESTINATION_FOLDER).
+#            Point that folder at a path inside OneDrive/Dropbox/etc. and
+#            that app's own desktop client uploads everything to the
+#            cloud for you - no second cloud API integration needed, and
+#            no Google Drive storage quota to worry about.
+# Everything else about the importer (crawling, organising by programme,
+# duplicate detection, resuming) works identically either way.
+DESTINATION_MODE = "local"
+
+# Used when DESTINATION_MODE = "drive". This folder must already exist in
+# your Google Drive. Every imported programme/file is placed inside it
+# directly - the importer never creates an extra top-level wrapper folder.
 DESTINATION_FOLDER_URL = "https://drive.google.com/drive/folders/1IhfnUUiwlSjoYFUQqKqA3jOzaN8pXRmQ"
+
+# Used when DESTINATION_MODE = "local". Any folder on disk - it's created
+# if it doesn't already exist. Files already present here (with a
+# matching name and size) are treated as already imported and left alone.
+LOCAL_DESTINATION_FOLDER = Path(
+    r"C:\Users\toela\OneDrive\Desktop\Documents\1. Tonki Ventures\Belief Coding\Belief Coding Bonuses"
+)
 
 # --------------------------------------------------------------------------
 # Additional Google Drive folders to crawl

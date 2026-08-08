@@ -8,7 +8,6 @@ created or uploaded.
 
 from datetime import datetime, timezone
 
-import config
 import duplicate_detector
 from logger import format_bytes
 
@@ -148,16 +147,18 @@ def _render_node(node, indent, lines):
         _render_node(node[key], indent + 1, lines)
 
 
-def render_plan_report(root_files, programmes, stats, db, destination_folder_name=None, all_files=None):
+def render_plan_report(root_files, programmes, stats, db, destination_description=None, all_files=None):
+    """destination_description: list of header lines describing where
+    files will land - built by main.py so this module doesn't need to
+    know whether the destination is Google Drive or a local folder."""
     lines = []
     lines.append("=" * 78)
     lines.append("BELIEF CODING RESOURCE IMPORTER - PROPOSED IMPORT PLAN")
     lines.append("=" * 78)
     lines.append(f"Generated: {datetime.now(timezone.utc).isoformat(timespec='seconds')}")
     lines.append("")
-    dest_label = destination_folder_name or "(destination folder)"
-    lines.append(f"Destination root: {dest_label}")
-    lines.append(f"                  {config.DESTINATION_FOLDER_URL}")
+    for line in (destination_description or ["Destination: (unknown)"]):
+        lines.append(line)
     lines.append("No extra top-level folder is created above this - everything below")
     lines.append("is placed directly inside it.")
     lines.append("")
@@ -175,7 +176,7 @@ def render_plan_report(root_files, programmes, stats, db, destination_folder_nam
         f"  Previous errors (will retry):       {stats['errors']}"
     )
     lines.append("")
-    lines.append("NOTHING WILL BE UPLOADED, MOVED, OR CREATED IN GOOGLE DRIVE UNTIL YOU RUN --execute.")
+    lines.append("NOTHING WILL BE SAVED, MOVED, OR CREATED AT THE DESTINATION UNTIL YOU RUN --execute.")
     lines.append("Review the structure below. Re-run with --execute once you approve it.")
     lines.append("=" * 78)
 
@@ -186,7 +187,7 @@ def render_plan_report(root_files, programmes, stats, db, destination_folder_nam
         lines.append(f"ALREADY-IMPORTED FILES THAT WILL BE MOVED ({len(moves)})")
         lines.append("-" * 78)
         lines.append("These were uploaded by an earlier run before this grouping fix. They will")
-        lines.append("be relocated in place (a metadata-only Drive move, not a re-upload) so")
+        lines.append("be relocated in place (moved, not re-downloaded/re-uploaded) so")
         lines.append("they end up in the same corrected folders as everything else.")
         lines.append("")
         for row, new_path in sorted(moves, key=lambda m: m[1].lower()):

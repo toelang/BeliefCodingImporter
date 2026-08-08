@@ -80,14 +80,53 @@ pip install -r requirements.txt
 
 - Put every index PDF you have into the `PDFs/` folder.
 - Open `config.py` and check:
-  - `DESTINATION_FOLDER_URL` - the existing Drive folder everything gets
-    imported into (already set to the folder you gave).
+  - `DESTINATION_MODE` - `"drive"` to upload into a Google Drive folder,
+    or `"local"` to save into a folder on this PC instead (see below).
+  - `DESTINATION_FOLDER_URL` - used when `DESTINATION_MODE = "drive"`.
+  - `LOCAL_DESTINATION_FOLDER` - used when `DESTINATION_MODE = "local"`.
   - `ADDITIONAL_DRIVE_FOLDERS` - any extra Drive folders to crawl besides
     what's linked in the PDFs (already includes "2 Weeks to £10K").
   - `WRAPPER_FOLDER_NAMES` - add to this list if you spot another
     marketing/membership wrapper folder that should be flattened.
   - `PROGRAMME_RENAMES` - optional, only needed if a source folder's name
     in Drive doesn't match what you want it called in the destination.
+
+### Saving to a local folder (e.g. OneDrive) instead of Google Drive
+
+Google Drive has a storage quota, and importing a large library can fill
+it up. Setting `DESTINATION_MODE = "local"` sidesteps that entirely: the
+importer still reads everything from Google Drive (that's where the
+source content lives), crawls and organises it exactly the same way, but
+the very last step - the "upload" - becomes "save into a folder on this
+PC" instead. Point `LOCAL_DESTINATION_FOLDER` at a path inside your
+OneDrive (or Dropbox, etc.) folder, and that app's own desktop client
+uploads everything placed there to the cloud automatically - no second
+cloud API, no separate Microsoft sign-in, nothing extra to set up.
+
+A few things behave slightly differently in local mode:
+
+- Files already sitting in `LOCAL_DESTINATION_FOLDER` (matching name and
+  size) are treated as already imported and left untouched - useful if
+  the folder already has some content in it.
+- Native Google Docs/Sheets/Slides are saved as their exported static
+  file (`.docx`/`.xlsx`/`.pptx`/`.png`) with that extension appended,
+  since there's no "live Google file" concept on a local disk.
+- Windows has a ~260 character path length limit by default. A handful
+  of deeply-nested files with long names could hit this; if a file fails
+  with a "path too long" error, either enable long path support (Windows
+  Settings, search for "Enable Win32 long paths") or use a shorter
+  `LOCAL_DESTINATION_FOLDER`.
+- Make sure you have enough free space both on your actual hard drive
+  *and* in your cloud storage plan - OneDrive normally keeps a full local
+  copy of everything it syncs.
+
+**Switching modes after already importing some files:** the two
+destinations don't share history - "already uploaded to Drive" doesn't
+carry over to a fresh local import. If you're moving your whole import to
+a new destination, delete `import_state.db` first so nothing is skipped
+as "already done" when it's only done in the *other* place. (This never
+touches the destination itself - it only resets the importer's own memory
+of what it's done.)
 
 ## 4. Review the plan first (default, safe)
 
@@ -357,7 +396,8 @@ BeliefCodingImporter/
     config.py               All settings live here
     pdf_parser.py            Extracts Drive links from the index PDFs
     drive_crawler.py         Recursive crawl + wrapper flattening + programme rules
-    drive_uploader.py        OAuth, folder creation, download/upload, retries
+    drive_uploader.py        OAuth, Drive folder creation, download/upload, retries
+    local_uploader.py         Local-folder destination backend (DESTINATION_MODE = "local")
     duplicate_detector.py    The three-tier duplicate check
     database.py              SQLite-backed resumable state
     plan_report.py           Builds the proposed structure preview (import_plan.txt)
