@@ -1,0 +1,21 @@
+# Secrets and auth
+credentials.json
+token.json
+
+# Local state / generated output - never shared, safe to delete
+import_state.db
+import_state.db-journal
+import_state.db-wal
+import_state.db-shm
+import_log.csv
+debug.log
+_temp_downloads/
+
+# The index PDFs themselves are personal input data, not project source
+PDFs/*.pdf
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/

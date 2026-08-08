@@ -1,0 +1,795 @@
+==============================================================================
+BELIEF CODING RESOURCE IMPORTER - PROPOSED IMPORT PLAN
+==============================================================================
+Generated: 2026-08-07T20:27:32+00:00
+
+Destination root: Bonuses
+                  https://drive.google.com/drive/folders/1IhfnUUiwlSjoYFUQqKqA3jOzaN8pXRmQ
+No extra top-level folder is created above this - everything below
+is placed directly inside it.
+
+273 file(s) discovered across 22 programme folder(s) and 23 root-level item(s) (70.0 GB total).
+  Will be uploaded:                   164
+  Already imported, staying put:      14
+  Already imported, will be moved:    76
+  Duplicates (will be skipped):       19
+  Inaccessible:                       0
+  Previous errors (will retry):       0
+
+NOTHING WILL BE UPLOADED, MOVED, OR CREATED IN GOOGLE DRIVE UNTIL YOU RUN --execute.
+Review the structure below. Re-run with --execute once you approve it.
+==============================================================================
+
+==============================================================================
+ALREADY-IMPORTED FILES THAT WILL BE MOVED (76)
+------------------------------------------------------------------------------
+These were uploaded by an earlier run before this grouping fix. They will
+be relocated in place (a metadata-only Drive move, not a re-upload) so
+they end up in the same corrected folders as everything else.
+
+  Creating content for your launch (slides, bullet points, references).mp4
+    -> 46 Day Launch Programme/Creating content for your launch (slides, bullet points, references).mp4
+  Day 1 Set up a Facebook groupmp4.mp4
+    -> 46 Day Launch Programme/Day 1 Set up a Facebook groupmp4.mp4
+  Day 10 Connect with EVERYONE!.mp4
+    -> 46 Day Launch Programme/Day 10 Connect with EVERYONE!.mp4
+  Day 11 Engage and Connect.mp4
+    -> 46 Day Launch Programme/Day 11 Engage and Connect.mp4
+  Day 12 Engage and connect.mp4
+    -> 46 Day Launch Programme/Day 12 Engage and connect.mp4
+  Day 13 Contact EVERYONE.mp4
+    -> 46 Day Launch Programme/Day 13 Contact EVERYONE.mp4
+  Day 14 Contact everyone again..mp4
+    -> 46 Day Launch Programme/Day 14 Contact everyone again..mp4
+  Day 15 Let people into your group and start building momentum.mp4
+    -> 46 Day Launch Programme/Day 15 Let people into your group and start building momentum.mp4
+  Day 16 Post your story and pin it.mp4
+    -> 46 Day Launch Programme/Day 16 Post your story and pin it.mp4
+  Day 17 Ideas to grow your group.mp4
+    -> 46 Day Launch Programme/Day 17 Ideas to grow your group.mp4
+  Day 18 Grow with Instagram.mp4
+    -> 46 Day Launch Programme/Day 18 Grow with Instagram.mp4
+  Day 19 Grow with Facebook.mp4
+    -> 46 Day Launch Programme/Day 19 Grow with Facebook.mp4
+  Day 2 Create a header image for your facebook group.mp4
+    -> 46 Day Launch Programme/Day 2 Create a header image for your facebook group.mp4
+  Day 2 Watch first (Creating Facebook header).mp4
+    -> 46 Day Launch Programme/Day 2 Watch first (Creating Facebook header).mp4
+  Day 20 Grow with Whatsapp.mp4
+    -> 46 Day Launch Programme/Day 20 Grow with Whatsapp.mp4
+  Day 21 Where else can you grow .mp4
+    -> 46 Day Launch Programme/Day 21 Where else can you grow .mp4
+  Day 22 Cultivate Content.mp4
+    -> 46 Day Launch Programme/Day 22 Cultivate Content.mp4
+  Day 23 Tag the new people in your group and create a CTA.mp4
+    -> 46 Day Launch Programme/Day 23 Tag the new people in your group and create a CTA.mp4
+  Day 24 Create a day growth plan to keep you accountable.mp4
+    -> 46 Day Launch Programme/Day 24 Create a day growth plan to keep you accountable.mp4
+  Day 25 - 30 Grow, engage and social proof.mp4
+    -> 46 Day Launch Programme/Day 25 - 30 Grow, engage and social proof.mp4
+  Day 3 Start gathering your testimonials today!.mp4
+    -> 46 Day Launch Programme/Day 3 Start gathering your testimonials today!.mp4
+  Day 31 Announce your launch party masterclass.mp4
+    -> 46 Day Launch Programme/Day 31 Announce your launch party masterclass.mp4
+  Day 32 - 42 Hook, Story, Offer!.mp4
+    -> 46 Day Launch Programme/Day 32 - 42 Hook, Story, Offer!.mp4
+  Day 4 Create a Free discounted  offer to gather more testimonials.mp4
+    -> 46 Day Launch Programme/Day 4 Create a Free discounted  offer to gather more testimonials.mp4
+  Day 43 Your Launch.mp4
+    -> 46 Day Launch Programme/Day 43 Your Launch.mp4
+  Day 44 The countdown begins.mp4
+    -> 46 Day Launch Programme/Day 44 The countdown begins.mp4
+  Day 45 Share people who have shown interest or are in.mp4
+    -> 46 Day Launch Programme/Day 45 Share people who have shown interest or are in.mp4
+  Day 46 Continue to create interest.mp4
+    -> 46 Day Launch Programme/Day 46 Continue to create interest.mp4
+  Day 5 Create posts with CTAs on for new arrivals.mp4
+    -> 46 Day Launch Programme/Day 5 Create posts with CTAs on for new arrivals.mp4
+  Day 6  Increasing Value of your product with an offer.mp4
+    -> 46 Day Launch Programme/Day 6  Increasing Value of your product with an offer.mp4
+  Day 6 Create a clear connection with your product and bonuses.mp4
+    -> 46 Day Launch Programme/Day 6 Create a clear connection with your product and bonuses.mp4
+  Day 6 Understanding the difference a product VS offer.mp4
+    -> 46 Day Launch Programme/Day 6 Understanding the difference a product VS offer.mp4
+  Day 6 What bonuses do you have .mp4
+    -> 46 Day Launch Programme/Day 6 What bonuses do you have .mp4
+  Day 6 Your Product .mp4
+    -> 46 Day Launch Programme/Day 6 Your Product .mp4
+  Day 7 Language inventory.mp4
+    -> 46 Day Launch Programme/Day 7 Language inventory.mp4
+  Day 7 What is an inventory .mp4
+    -> 46 Day Launch Programme/Day 7 What is an inventory .mp4
+  Day 8 Create your story inventory.mp4
+    -> 46 Day Launch Programme/Day 8 Create your story inventory.mp4
+  Day 9 Create your Hook inventory (from your stories).mp4
+    -> 46 Day Launch Programme/Day 9 Create your Hook inventory (from your stories).mp4
+  Intro . .mp4
+    -> 46 Day Launch Programme/Intro . .mp4
+  What is a launch masterclass webinbar .mp4
+    -> 46 Day Launch Programme/What is a launch masterclass webinbar .mp4
+  What is the Hook, Story, Offer format .mp4
+    -> 46 Day Launch Programme/What is the Hook, Story, Offer format .mp4
+  What is your offer .mp4
+    -> 46 Day Launch Programme/What is your offer .mp4
+  Building Your Tribe.mp4
+    -> Business & Marketing Blueprint/Building Your Tribe.mp4
+  Business & Marketing Blueprint.mp4
+    -> Business & Marketing Blueprint/Business & Marketing Blueprint.mp4
+  Customer Avatar.mp4
+    -> Business & Marketing Blueprint/Customer Avatar.mp4
+  Facebook® Groups.mp4
+    -> Business & Marketing Blueprint/Facebook® Groups.mp4
+  Facebook® Growth.mp4
+    -> Business & Marketing Blueprint/Facebook® Growth.mp4
+  Instagram®.mp4
+    -> Business & Marketing Blueprint/Instagram®.mp4
+  Launch Format.mp4
+    -> Business & Marketing Blueprint/Launch Format.mp4
+  Tone of Voice.mp4
+    -> Business & Marketing Blueprint/Tone of Voice.mp4
+  What Are You Selling.mp4
+    -> Business & Marketing Blueprint/What Are You Selling.mp4
+  Your Launch.mp4
+    -> Business & Marketing Blueprint/Your Launch.mp4
+  Business Coaching - Week Five - Passive Income Masterclass.mp4
+    -> Business Coaching Programme/Business Coaching - Week Five - Passive Income Masterclass.mp4
+  Business Coaching - Week Four - Planning a Launch.mp4
+    -> Business Coaching Programme/Business Coaching - Week Four - Planning a Launch.mp4
+  Business Coaching - Week One - Alignment.mp4
+    -> Business Coaching Programme/Business Coaching - Week One - Alignment.mp4
+  Business Coaching - Week Six - Facebook® Ads.mp4
+    -> Business Coaching Programme/Business Coaching - Week Six - Facebook® Ads.mp4
+  Business Coaching - Week Three - Your Tribe.mp4
+    -> Business Coaching Programme/Business Coaching - Week Three - Your Tribe.mp4
+  Business Day - Your Goal.mp4
+    -> Business Coaching Programme/Business Day - Your Goal.mp4
+  Business Day - Your Launch.mp4
+    -> Business Coaching Programme/Business Day - Your Launch.mp4
+  COFIDENCE_11_STEPS.pdf
+    -> Confidence Masterclass/COFIDENCE_11_STEPS.pdf
+  Confidence Coaching
+    -> Confidence Masterclass/Confidence Coaching
+  Increase Your Self Confidence & Self Esteem.mp4
+    -> Confidence Masterclass/Increase Your Self Confidence & Self Esteem.mp4
+  Powering through to become CONFIDENT AF! Confidence!.mp4
+    -> Confidence Masterclass/Powering through to become CONFIDENT AF! Confidence!.mp4
+  Self_-_Confidence_and_Self_-_Esteem.pdf
+    -> Confidence Masterclass/Self_-_Confidence_and_Self_-_Esteem.pdf
+  Manifestation_Coding.pdf
+    -> Manifestation Coding/Manifestation_Coding.pdf
+  Manifesting Coding.mp4
+    -> Manifestation Coding/Manifesting Coding.mp4
+  1. Reiki_2_-_Welcome.mp4
+    -> Reiki 2/1. Reiki_2_-_Welcome.mp4
+  2. Cho_Ku_Rei_-_Part_1.mp4
+    -> Reiki 2/2. Cho_Ku_Rei_-_Part_1.mp4
+  3. Cho_Ku_Rei_-_Part_2.mp4
+    -> Reiki 2/3. Cho_Ku_Rei_-_Part_2.mp4
+  4. Sei_He_Ki_-_Part_1.mp4
+    -> Reiki 2/4. Sei_He_Ki_-_Part_1.mp4
+  5. Sei_He_Ki_-_Part_2.mp4
+    -> Reiki 2/5. Sei_He_Ki_-_Part_2.mp4
+  6. Sei_He_Ki_-_Part_3.mp4
+    -> Reiki 2/6. Sei_He_Ki_-_Part_3.mp4
+  7. Hon_Sha_Ze_Sho_Nen_-_Part_1.mp4
+    -> Reiki 2/7. Hon_Sha_Ze_Sho_Nen_-_Part_1.mp4
+  8. Hon_Sha_Ze_Sho_Nen_-_Part_2.mp4
+    -> Reiki 2/8. Hon_Sha_Ze_Sho_Nen_-_Part_2.mp4
+  9. Hon_Sha_Ze_Sho_Nen_-_Part_3.mp4
+    -> Reiki 2/9. Hon_Sha_Ze_Sho_Nen_-_Part_3.mp4
+  Reiki_2_Manual_Belief_Coding_Community.pdf
+    -> Reiki 2/Reiki_2_Manual_Belief_Coding_Community.pdf
+==============================================================================
+
+FOLDER TREE
+------------------------------------------------------------------------------
+(destination root)/
+    6_steps_to_6_figures.pdf  (42.5 MB) [already imported]
+    Belief Coding_Facilitator_Client_Gift.pdf  (47.2 KB) [already imported]
+    Belief Coding_JC_to_BC_6_Weeks_Inner_Freedom.pdf  (50.2 KB) [already imported]
+    Belief Coding® Breathworth Techniques with Breathwork Master Craig Seaton.mp4  (293.7 MB)
+    Business Strategy.mp4  (846.9 MB) [already imported]
+    Content repurposing .mp4  (431.8 MB)
+    Copywriting .mp4  (516.3 MB)
+    Cord Cutting.mp4  (94.9 MB)
+    Get into the media .mp4  (131.7 MB)
+    Goddess Energies.mp4  (192.6 MB)
+    Ho'ponopono.mp4  (373.3 MB)
+    Incorporating Lucid Dreaming Techniques with Belief Coding hosted by Craig Seaton.mp4  (407.8 MB)
+    Life Coaching with Belief Coding® Masterclass - Replay.mp4  (253.2 MB)
+    Life_coaching_with_Beliefcoding.pdf  (1.7 MB)
+    Mission Statement.mp4  (320.5 MB)
+    Online Retreat.mp4  (2.5 GB)
+    Passive Income & Revenue Streams .mp4  (394.1 MB)
+    Public_Speaking.mp4  (157.5 MB)
+    Remote Viewing.mp4  (279.3 MB)
+    Retreat Day .mp4  (1.5 GB)
+    See, Believe, Receive Manifestation & Strategy Workshop mp4.mp4  (447.4 MB)
+    Sheild Your Energy.mp4  (86.3 MB) [duplicate - will be skipped]
+    Shielding your energy.mp4  (86.3 MB)
+    2 Weeks to 10k Months/
+        Belief Coding_2_Weeks_to_10k.pdf  (43.5 KB) [already imported]
+        Copy of Part 1 .mp4  (10.8 MB) [already imported]
+        Copy of Part 2 .mp4  (27.3 MB) [already imported]
+        Copy of Part 3 .mp4  (17.1 MB) [already imported]
+        Copy of Part 4 .mp4  (69.5 MB) [already imported]
+        Copy of Part 5.mp4  (36.1 MB) [already imported]
+        Copy of Part 6 .mp4  (46.2 MB) [already imported]
+        Copy of Part 7 .mp4  (7.6 MB) [already imported]
+        Copy of Part 8 .mp4  (51.3 MB) [already imported]
+        Copy of Part 9 .mp4  (25.9 MB) [already imported]
+    46 Day Launch Programme/
+        Creating content for your launch (slides, bullet points, references).mp4  (80.2 MB) [already imported - will be moved here]
+        Day 1 Set up a Facebook groupmp4.mp4  (268.2 MB) [already imported - will be moved here]
+        Day 10 Connect with EVERYONE!.mp4  (49.7 MB) [already imported - will be moved here]
+        Day 11 Engage and Connect.mp4  (19.4 MB) [already imported - will be moved here]
+        Day 12 Engage and connect.mp4  (10.9 MB) [already imported - will be moved here]
+        Day 13 Contact EVERYONE.mp4  (46.2 MB) [already imported - will be moved here]
+        Day 14 Contact everyone again..mp4  (17.3 MB) [already imported - will be moved here]
+        Day 15 Let people into your group and start building momentum.mp4  (30.8 MB) [already imported - will be moved here]
+        Day 16 Post your story and pin it.mp4  (22.4 MB) [already imported - will be moved here]
+        Day 17 Ideas to grow your group.mp4  (28.6 MB) [already imported - will be moved here]
+        Day 18 Grow with Instagram.mp4  (40.5 MB) [already imported - will be moved here]
+        Day 19 Grow with Facebook.mp4  (25.8 MB) [already imported - will be moved here]
+        Day 2 Create a header image for your facebook group.mp4  (67.2 MB) [already imported - will be moved here]
+        Day 2 Watch first (Creating Facebook header).mp4  (34.9 MB) [already imported - will be moved here]
+        Day 20 Grow with Whatsapp.mp4  (28.1 MB) [already imported - will be moved here]
+        Day 21 Where else can you grow .mp4  (15.2 MB) [already imported - will be moved here]
+        Day 22 Cultivate Content.mp4  (32.9 MB) [already imported - will be moved here]
+        Day 23 Tag the new people in your group and create a CTA.mp4  (24.1 MB) [already imported - will be moved here]
+        Day 24 Create a day growth plan to keep you accountable.mp4  (21.3 MB) [already imported - will be moved here]
+        Day 25 - 30 Grow, engage and social proof.mp4  (22.5 MB) [already imported - will be moved here]
+        Day 3 Start gathering your testimonials today!.mp4  (37.6 MB) [already imported - will be moved here]
+        Day 31 Announce your launch party masterclass.mp4  (43.7 MB) [already imported - will be moved here]
+        Day 32 - 42 Hook, Story, Offer!.mp4  (65.0 MB) [already imported - will be moved here]
+        Day 4 Create a Free discounted  offer to gather more testimonials.mp4  (31.2 MB) [already imported - will be moved here]
+        Day 43 Your Launch.mp4  (97.2 MB) [already imported - will be moved here]
+        Day 44 The countdown begins.mp4  (51.7 MB) [already imported - will be moved here]
+        Day 45 Share people who have shown interest or are in.mp4  (48.2 MB) [already imported - will be moved here]
+        Day 46 Continue to create interest.mp4  (32.9 MB) [already imported - will be moved here]
+        Day 5 Create posts with CTAs on for new arrivals.mp4  (44.5 MB) [already imported - will be moved here]
+        Day 6  Increasing Value of your product with an offer.mp4  (34.3 MB) [already imported - will be moved here]
+        Day 6 Create a clear connection with your product and bonuses.mp4  (31.1 MB) [already imported - will be moved here]
+        Day 6 Understanding the difference a product VS offer.mp4  (71.5 MB) [already imported - will be moved here]
+        Day 6 What bonuses do you have .mp4  (53.9 MB) [already imported - will be moved here]
+        Day 6 Your Product .mp4  (29.7 MB) [already imported - will be moved here]
+        Day 7 Language inventory.mp4  (64.7 MB) [already imported - will be moved here]
+        Day 7 What is an inventory .mp4  (38.7 MB) [already imported - will be moved here]
+        Day 8 Create your story inventory.mp4  (54.4 MB) [already imported - will be moved here]
+        Day 9 Create your Hook inventory (from your stories).mp4  (29.7 MB) [already imported - will be moved here]
+        Intro . .mp4  (49.9 MB) [already imported - will be moved here]
+        What is a launch masterclass webinbar .mp4  (98.9 MB) [already imported - will be moved here]
+        What is the Hook, Story, Offer format .mp4  (67.8 MB) [already imported - will be moved here]
+        What is your offer .mp4  (45.2 MB) [already imported - will be moved here]
+    Body Confidence Masterclass/
+        Belief Coding_Confidence_Coaching (1).pdf  (39.6 KB)
+        Belief Coding_The_Body_Course.pdf  (41.7 KB)
+        The Body Course - Self Sabotage & Our Bodies -  Module 1.mp4  (59.7 MB)
+        The Body Course - Self Sabotage & Our Bodies - Body_Image.pdf  (299.1 KB)
+        The Body Course - Self Sabotage & Our Bodies - Module 2 .mp4  (39.5 MB)
+        The Body Course - Self Sabotage & Our Bodies - Module 3 .mp4  (15.8 MB)
+        The Body Course - Self Sabotage & Our Bodies - Module 4 .mp4  (15.6 MB)
+        The Body Course - Self Sabotage & Our Bodies - Module 5 .mp4  (12.0 MB)
+        The Body Course - Self Sabotage & Our Bodies - Module 6 .mp4  (27.1 MB)
+        The Body Course - Self Sabotage & Our Bodies - Module 7 .mp4  (9.8 MB)
+        The Body Course - Self Sabotage & Our Bodies - Module 8 .mp4  (13.2 MB)
+    Business & Marketing Blueprint/
+        Building Your Tribe.mp4  (125.5 MB) [already imported - will be moved here]
+        Business & Marketing Blueprint.mp4  (80.1 MB) [already imported - will be moved here]
+        Customer Avatar.mp4  (333.9 MB) [already imported - will be moved here]
+        Facebook® Groups.mp4  (114.6 MB) [already imported - will be moved here]
+        Facebook® Growth.mp4  (417.4 MB) [already imported - will be moved here]
+        Instagram®.mp4  (349.7 MB) [already imported - will be moved here]
+        Launch Format.mp4  (676.4 MB) [already imported - will be moved here]
+        Tone of Voice.mp4  (285.9 MB) [already imported - will be moved here]
+        What Are You Selling.mp4  (441.8 MB) [already imported - will be moved here]
+        Your Launch.mp4  (374.0 MB) [already imported - will be moved here]
+    Business Coaching Programme/
+        Business Coaching - Week Five - Passive Income Masterclass.mp4  (435.1 MB) [already imported - will be moved here]
+        Business Coaching - Week Four - Planning a Launch.mp4  (368.0 MB) [already imported - will be moved here]
+        Business Coaching - Week One - Alignment.mp4  (380.9 MB) [already imported - will be moved here]
+        Business Coaching - Week Six - Facebook® Ads.mp4  (57.2 MB) [already imported - will be moved here]
+        Business Coaching - Week Three - Your Tribe.mp4  (215.9 MB) [already imported - will be moved here]
+        Business Coaching - Week Two - Becoming Magnetic.mp4  (216.7 MB)
+        Business Day - Day 1 Replay.mp4  (2.2 GB)
+        Business Day - Growing Your Audience.mp4  (1.8 GB)
+        Business Day - Where Are You Now.mp4  (1005.5 MB)
+        Business Day - Your Goal.mp4  (1.8 GB) [already imported - will be moved here]
+        Business Day - Your Invincible Offer.mp4  (2.8 GB)
+        Business Day - Your Launch.mp4  (1.8 GB) [already imported - will be moved here]
+        business_coaching.pdf  (22.2 MB)
+        Business_Coaching_Week_3-_Your_Tribe.pdf  (4.8 MB)
+        CFE_Social_Media_The_easy_way_INTERACTIVE_1_1_.pdf  (2.0 MB)
+    Confidence Masterclass/
+        COFIDENCE_11_STEPS.pdf  (4.6 MB) [already imported - will be moved here]
+        Confidence Coaching  (4.8 KB) [already imported - will be moved here]
+        Increase Your Self Confidence & Self Esteem.mp4  (583.2 MB) [already imported - will be moved here]
+        Powering through to become CONFIDENT AF! Confidence!.mp4  (629.6 MB) [already imported - will be moved here]
+        Powering through to become CONFIDENT AF! The Masterclass.mp4  (629.6 MB) [duplicate - was skipped]
+        Self_-_Confidence_and_Self_-_Esteem.pdf  (46.4 MB) [already imported - will be moved here]
+    Crystal Masterclass with Cam Wickers/
+        1. Introduction .mov  (104.4 MB)
+        2. Crystal Meditation.mov  (1.3 GB)
+        3. Choosing your Crystal.mov  (271.5 MB)
+        4. Must Have Crystals.mov  (508.8 MB)
+        5. Incorporate Crystals into your Day to Day Life.mov  (499.9 MB)
+        6. Cleanse and Charge your Crystals .mov  (1.0 GB)
+        7. Incorporate Crystals into your Spiritual Practices.mov  (539.4 MB)
+    Discover the Power of your Future Self/
+        Future Self Meditation/
+            Belief_Coding_Meditation.wav  (567.6 MB)
+        Future Self Wall Planner/
+            CFE Wall Planner COVER.pdf  (1.5 MB)
+            CFE Wall Planner PAGE 1.pdf  (1.1 MB)
+            CFE Wall Planner PAGE 10.pdf  (1.2 MB)
+            CFE Wall Planner PAGE 11.pdf  (1.1 MB)
+            CFE Wall Planner PAGE 12.pdf  (1.5 MB)
+            CFE Wall Planner PAGE 13.pdf  (3.1 MB)
+            CFE Wall Planner PAGE 14.pdf  (1.6 MB)
+            CFE Wall Planner PAGE 15.pdf  (1.2 MB)
+            CFE Wall Planner PAGE 16.pdf  (1.6 MB)
+            CFE Wall Planner PAGE 17.pdf  (1.8 MB)
+            CFE Wall Planner PAGE 18.pdf  (1.1 MB)
+            CFE Wall Planner PAGE 2.pdf  (1.7 MB)
+            CFE Wall Planner PAGE 3.pdf  (2.2 MB)
+            CFE Wall Planner PAGE 4.pdf  (1.2 MB)
+            CFE Wall Planner PAGE 5.pdf  (1.6 MB)
+            CFE Wall Planner PAGE 6.pdf  (1.9 MB)
+            CFE Wall Planner PAGE 7 .pdf  (2.6 MB)
+            CFE Wall Planner PAGE 8.pdf  (878.5 KB)
+            CFE Wall Planner PAGE 9.pdf  (2.0 MB)
+            Future Self Page.pdf  (1.7 MB)
+    Healing Chants/
+        Ho'ponopono.mp4  (373.3 MB) [duplicate - will be skipped]
+        Om_Gam_Ganapataye_Namaha.wav  (98.2 MB)
+        Om_Mani_Padme_Hum_TCP.wav  (102.6 MB)
+    Instagram Story & Strategy Booster/
+        Masterclass .mp4  (1.8 GB)
+        Story_Schedule.pdf  (90.0 KB)
+    JC TO BC - 6 Weeks to Inner Freedom/
+        Week 1 - The PMA Toolkit - Get started with Project Positive/
+            Project_Positive_Print_out.png  (283.9 KB)
+            Week 1 - The PMA Toolkit - Get started with Project Positive.mp4  (97.7 MB)
+            Week_1.pdf  (223.9 KB)
+        Week 1 - The PMA Toolkit - Project Positive Masterclass/
+            Week 1 - The PMA Toolkit - Project Positive Masterclass.mp4  (618.2 MB)
+        Week 2 - Future Self - The Meditation/
+            Belief_Coding_Meditation.wav  (567.6 MB) [duplicate - will be skipped]
+            Week 2 - Future Self - The Meditation.mp4  (66.1 MB)
+        Week 2 - Future Self - Welcome/
+            future_self_PDF.pdf  (3.4 MB) [duplicate - will be skipped]
+            Week 2 - Future Self - Welcome.mp4  (157.9 MB)
+        Week 2 - Future Self part 1/
+            desktop.ini  (246 B) [duplicate - will be skipped]
+            Week 2 - Future Self Part 1.mp4  (369.8 MB)
+        Week 2 - Future self part 2/
+            Week 2 - Future Self Part 2.mp4  (166.6 MB)
+        Week 2 - Future self part 3/
+            Week 2 - Future Self Part 3.mp4  (79.0 MB)
+        Week 2 - Future self part 4/
+            Week 2 - Future Self Part 4.mp4  (144.4 MB)
+        Week 2 - Print out PDFS to fill in/
+            desktop.ini  (246 B)
+            future_self_PDF.pdf  (3.4 MB)
+        Week 3 - Turning Negative Actions in to Positive ones..easily/
+            Week 3 - Turning Negative Actions in to Positive ones..easily.mp4  (248.6 MB)
+        Week 3 - Turning Negative feelings in to Positive ones..easily/
+            Positve_thoughts.mp4  (299.1 MB)
+            Week 3 - Turning Negative feelings in to Positive ones..easily.mp4  (411.0 MB)
+        Week 3 - Turning Negative Reactions in to Positive ones..easily/
+            Week 3 - Turning Negative Reactions in to Positive ones..easily.mp4  (291.6 MB)
+        Week 3 - Turning Negative thoughts in to Positive ones..easily/
+            Positve_thoughts.mp4  (299.1 MB) [duplicate - will be skipped]
+            Week 3 - Turning Negative thoughts in to Positive ones..easily.mp4  (299.1 MB) [duplicate - will be skipped]
+        Week 3 - Welcome to Positive in Opposite/
+            Week 3 - Welcome to Positive In Opposites.mp4  (61.4 MB)
+        Week 4 - Creating A Money Mindset - The Masterclass Booklet/
+            Project_Positive_1_.pdf  (531.2 KB) [duplicate - will be skipped]
+        Week 4 - Current Money Mindset/
+            Current_money_mindset.mp4  (266.2 MB) [duplicate - will be skipped]
+            Week 4 - Current Money Mindset.mp4  (266.2 MB)
+        Week 4 - Introduction to your money mindset/
+            Week 4 - Introduction to your money mindset.mp4  (115.6 MB)
+        Week 4 - Our Beliefs have been give to us, GIVE THEM BACK!/
+            desktop.ini  (246 B) [duplicate - will be skipped]
+            Week 4 - Our Beliefs have been give to us, GIVE THEM BACK!.mp4  (591.2 MB)
+        Week 4 - Our Money Story/
+            desktop.ini  (246 B) [duplicate - will be skipped]
+            Week 4 - Our Money Story.mp4  (239.5 MB)
+        Week 4 - Part 1 - How i feel around money/
+            Week 4 - Part 1 - How i feel around money .mp4  (282.8 MB)
+        Week 4 - Part 2 - How I feel around money/
+            Week 4 - Part 2 - How I feel around money.mp4  (129.3 MB)
+        Week 5 - Introduction/
+            Week 5 - Introduction.mp4  (62.5 MB)
+        Week 5 - Stories Part 1/
+            Week 5 - Stories part 1 .mp4  (204.1 MB)
+        Week 5 - Stories part 2/
+            Week 5 - Stories part 2.mp4  (224.2 MB)
+        Week 5 - Stories part 3/
+            Week 5 - Stories part 3.mp4  (193.2 MB)
+        Week 5 - Stories part 4/
+            Week 5 - Stories part 4.mp4  (257.3 MB)
+        Week 5 - The Stories We Write - Worksheets/
+            Project_Positive_3_.pdf  (131.6 KB)
+        Week 6 - Join me to go through Osho Dynamic Meditation/
+            RELEASE_AND_SURRENDER.pdf  (17.4 KB)
+        Week 6 - Meditation/
+            Week 6 - Meditation .mp4  (352.7 MB)
+        Week 6 - OSHO - Osho dynamic meditation intro/
+            desktop.ini  (246 B) [duplicate - will be skipped]
+            Week 6 - OSHO - Osho dynamic meditation intro..mp4  (138.7 MB)
+        Week 6 - Part 1 - Chaotic breathing/
+            desktop.ini  (246 B) [duplicate - will be skipped]
+            Week 6 - Part 1 -  Chaotic breathing.mp4  (156.1 MB)
+        Week 6 - Part 2 - Releasing The Chaos/
+            Week 6 - Part 2 - Releasing The Chaos.mp4  (187.7 MB)
+        Week 6 - Part 3 - Hoo Hoo Hoo/
+            Week 6 - Part 3 - Hoo Hoo Hoo.mp4  (173.6 MB)
+        Week 6 - Part 4 - Silence and Stillness/
+            Week 6 - Part 4 - Silence and Stillness.mp4  (150.8 MB)
+    Learn How to Work with Cacao/
+        1. The Heart Laid Cacao Ceremony .mp4  (436.6 MB)
+        2. Cacao Moon Ceremony part 1.mp4  (837.2 MB)
+        3. Cacao Moon Ceremony - Part 2.mp4  (1.1 GB)
+        4. Cacao Moon Ceremony - Part 3mp4.mp4  (953.0 MB)
+        5. Cacao Moon Ceremony - part 4.mp4  (1.5 GB)
+        6. Cacao Moon Ceremony - Part 5.mp4  (300.6 MB)
+        7. Cacao Moon Ceremony part 6.mp4  (1.4 GB)
+        8. How to Make the Perfect Cup of Cacao.mp4  (25.4 MB)
+        Links  (1.9 KB)
+    Level Up/
+        1. Level 1 .mp4  (1.1 GB)
+        2. Level 2 .mp4  (629.1 MB)
+        Belief Coding_Level_Up.pdf  (44.5 KB)
+        Belief Coding® The-Level-Up.pdf  (3.6 MB)
+    Life Coaching with Belief Coding® Masterclass - Replay/
+        Life Coaching with Belief Coding® Masterclass - Replay.mp4  (253.2 MB) [duplicate - will be skipped]
+        Life_coaching_with_Beliefcoding.pdf  (1.7 MB) [duplicate - will be skipped]
+    Manifestation Coding/
+        Manifestation_Coding.pdf  (23.7 MB) [already imported - will be moved here]
+        Manifesting Coding.mp4  (549.4 MB) [already imported - will be moved here]
+    Meet your Spirit Guides/
+        Copy of Meet your Spirit Guide Session .mp4  (331.2 MB)
+        Meet your Spirit Guide Session .mp4  (331.2 MB) [duplicate - will be skipped]
+        What You Need To ENHANCE Your Experience  (1.0 KB)
+    Money Mindset/
+        Money Mindset - Module 1.mp4  (430.8 MB)
+        Money Mindset - Module 2.mp4  (295.3 MB)
+        Money Mindset - Module 3.mp4  (206.4 MB)
+        Money Mindset - Module 4.mp4  (113.1 MB)
+        Money Mindset - Module 5.mp4  (244.4 MB)
+        Money Mindset - Module 6.mp4  (244.4 MB) [duplicate - will be skipped]
+        Money Mindset - Module 7.mp4  (87.1 MB)
+        Money Mindset - Module 8.mp4  (245.7 MB)
+        Money_Mindset.pdf  (531.2 KB)
+    Reiki 1/
+        1. Reiki_Intro.mp4  (61.3 MB)
+        10. 21_Day_Attunement_Process.mp4  (52.4 MB)
+        11. Empowering_Your_Energy.mp4  (268.8 MB)
+        12. _Preparing_and_Cleansing_the_Space.mp4  (130.2 MB)
+        13. Kanji_Hand_Positions.mp4  (49.2 MB)
+        14. Tottem_Connection_Sequence.mp4  (108.2 MB)
+        15. Self_Reiki.mp4  (268.8 MB)
+        16. Reiki_Treatments_-_Part_1.mp4  (73.4 MB)
+        17. Reiki_Treatments_-_Part_2.mp4  (722.4 MB)
+        18. Reiki_Treatment_Seated.mp4  (194.5 MB)
+        19. Purging.mp4  (99.9 MB)
+        2. What_is_Reiki (1).mp4  (75.2 MB)
+        20. Reiki_on_Animals_and_Plants.mp4  (36.1 MB)
+        21. Reiki_Outro.mp4  (20.2 MB)
+        3. Opening_Space_Meditation.mp4  (232.4 MB)
+        4. The_Benefits_of_Reiki.mp4  (141.8 MB)
+        5. The_History_of_Reiki.mp4  (15.4 MB)
+        6. Reiki_Principles.mp4  (765.5 MB)
+        7. The_Auras.mp4  (850.9 MB)
+        8. The_Chakra_Systen.mp4  (1.3 GB)
+        9. Attunements.mp4  (69.3 MB)
+        Reiki Code of Conduct UKRF_Ethics_Practice.pdf  (260.3 KB)
+        Workbook - Reiki 1 Belief Coding Community  (5.4 MB)
+    Reiki 2/
+        1. Reiki_2_-_Welcome.mp4  (46.9 MB) [already imported - will be moved here]
+        10. Hon_Sha_Ze_Sho_Nen_-_Part_4.mp4  (166.5 MB) [duplicate - was skipped]
+        2. Cho_Ku_Rei_-_Part_1.mp4  (357.8 MB) [already imported - will be moved here]
+        3. Cho_Ku_Rei_-_Part_2.mp4  (118.6 MB) [already imported - will be moved here]
+        4. Sei_He_Ki_-_Part_1.mp4  (214.0 MB) [already imported - will be moved here]
+        5. Sei_He_Ki_-_Part_2.mp4  (39.8 MB) [already imported - will be moved here]
+        6. Sei_He_Ki_-_Part_3.mp4  (84.4 MB) [already imported - will be moved here]
+        7. Hon_Sha_Ze_Sho_Nen_-_Part_1.mp4  (181.8 MB) [already imported - will be moved here]
+        8. Hon_Sha_Ze_Sho_Nen_-_Part_2.mp4  (82.9 MB) [already imported - will be moved here]
+        9. Hon_Sha_Ze_Sho_Nen_-_Part_3.mp4  (454.7 MB) [already imported - will be moved here]
+        Reiki_2_Manual_Belief_Coding_Community.pdf  (969.7 KB) [already imported - will be moved here]
+    The Akashic Records/
+        Accessing Your Akashic Records - Visiting Your Akashic Records.mp4  (371.1 MB)
+        Belief Coding_The_Akashic_Records.pdf  (38.2 KB)
+        The Akashic Records  (8.1 KB)
+    Working with Your Spirit Animal/
+        1. About Your Master.mp4  (69.7 MB)
+        2. The Difference - Power, Totem and Spirit.mp4  (96.1 MB)
+        3. Meet Your Power Animal Meditation.mp4  (177.5 MB)
+        4. Using Your Power Animal In Day To Day Life.mp4  (57.4 MB)
+        Belief Coding_Working_with_Your_Spirit_Guides.pdf  (39.0 KB)
+    £500 Blueprint/
+        £500 Blueprint/
+            _5000_Blueprint_Formula.pdf  (325.8 KB)
+            Belief Coding_5000_Blueprint.pdf  (39.2 KB)
+            CFE_Money_Mindset_Workbook_1_.pdf  (1.2 MB)
+            Part 1 .mp4  (2.9 GB)
+            Part 2 .mp4  (2.8 GB)
+
+==============================================================================
+FULL FILE LIST - every file with its complete destination path (273)
+------------------------------------------------------------------------------
+  2 Weeks to 10k Months/Belief Coding_2_Weeks_to_10k.pdf  (43.5 KB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 1 .mp4  (10.8 MB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 2 .mp4  (27.3 MB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 3 .mp4  (17.1 MB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 4 .mp4  (69.5 MB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 5.mp4  (36.1 MB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 6 .mp4  (46.2 MB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 7 .mp4  (7.6 MB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 8 .mp4  (51.3 MB) [already imported]
+  2 Weeks to 10k Months/Copy of Part 9 .mp4  (25.9 MB) [already imported]
+  46 Day Launch Programme/Creating content for your launch (slides, bullet points, references).mp4  (80.2 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 1 Set up a Facebook groupmp4.mp4  (268.2 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 10 Connect with EVERYONE!.mp4  (49.7 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 11 Engage and Connect.mp4  (19.4 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 12 Engage and connect.mp4  (10.9 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 13 Contact EVERYONE.mp4  (46.2 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 14 Contact everyone again..mp4  (17.3 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 15 Let people into your group and start building momentum.mp4  (30.8 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 16 Post your story and pin it.mp4  (22.4 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 17 Ideas to grow your group.mp4  (28.6 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 18 Grow with Instagram.mp4  (40.5 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 19 Grow with Facebook.mp4  (25.8 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 2 Create a header image for your facebook group.mp4  (67.2 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 2 Watch first (Creating Facebook header).mp4  (34.9 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 20 Grow with Whatsapp.mp4  (28.1 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 21 Where else can you grow .mp4  (15.2 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 22 Cultivate Content.mp4  (32.9 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 23 Tag the new people in your group and create a CTA.mp4  (24.1 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 24 Create a day growth plan to keep you accountable.mp4  (21.3 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 25 - 30 Grow, engage and social proof.mp4  (22.5 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 3 Start gathering your testimonials today!.mp4  (37.6 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 31 Announce your launch party masterclass.mp4  (43.7 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 32 - 42 Hook, Story, Offer!.mp4  (65.0 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 4 Create a Free discounted  offer to gather more testimonials.mp4  (31.2 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 43 Your Launch.mp4  (97.2 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 44 The countdown begins.mp4  (51.7 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 45 Share people who have shown interest or are in.mp4  (48.2 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 46 Continue to create interest.mp4  (32.9 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 5 Create posts with CTAs on for new arrivals.mp4  (44.5 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 6  Increasing Value of your product with an offer.mp4  (34.3 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 6 Create a clear connection with your product and bonuses.mp4  (31.1 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 6 Understanding the difference a product VS offer.mp4  (71.5 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 6 What bonuses do you have .mp4  (53.9 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 6 Your Product .mp4  (29.7 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 7 Language inventory.mp4  (64.7 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 7 What is an inventory .mp4  (38.7 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 8 Create your story inventory.mp4  (54.4 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Day 9 Create your Hook inventory (from your stories).mp4  (29.7 MB) [already imported - will be moved here]
+  46 Day Launch Programme/Intro . .mp4  (49.9 MB) [already imported - will be moved here]
+  46 Day Launch Programme/What is a launch masterclass webinbar .mp4  (98.9 MB) [already imported - will be moved here]
+  46 Day Launch Programme/What is the Hook, Story, Offer format .mp4  (67.8 MB) [already imported - will be moved here]
+  46 Day Launch Programme/What is your offer .mp4  (45.2 MB) [already imported - will be moved here]
+  6_steps_to_6_figures.pdf  (42.5 MB) [already imported]
+  Belief Coding_Facilitator_Client_Gift.pdf  (47.2 KB) [already imported]
+  Belief Coding_JC_to_BC_6_Weeks_Inner_Freedom.pdf  (50.2 KB) [already imported]
+  Belief Coding® Breathworth Techniques with Breathwork Master Craig Seaton.mp4  (293.7 MB)
+  Body Confidence Masterclass/Belief Coding_Confidence_Coaching (1).pdf  (39.6 KB)
+  Body Confidence Masterclass/Belief Coding_The_Body_Course.pdf  (41.7 KB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies -  Module 1.mp4  (59.7 MB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies - Body_Image.pdf  (299.1 KB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies - Module 2 .mp4  (39.5 MB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies - Module 3 .mp4  (15.8 MB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies - Module 4 .mp4  (15.6 MB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies - Module 5 .mp4  (12.0 MB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies - Module 6 .mp4  (27.1 MB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies - Module 7 .mp4  (9.8 MB)
+  Body Confidence Masterclass/The Body Course - Self Sabotage & Our Bodies - Module 8 .mp4  (13.2 MB)
+  Business & Marketing Blueprint/Building Your Tribe.mp4  (125.5 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/Business & Marketing Blueprint.mp4  (80.1 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/Customer Avatar.mp4  (333.9 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/Facebook® Groups.mp4  (114.6 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/Facebook® Growth.mp4  (417.4 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/Instagram®.mp4  (349.7 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/Launch Format.mp4  (676.4 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/Tone of Voice.mp4  (285.9 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/What Are You Selling.mp4  (441.8 MB) [already imported - will be moved here]
+  Business & Marketing Blueprint/Your Launch.mp4  (374.0 MB) [already imported - will be moved here]
+  Business Coaching Programme/Business Coaching - Week Five - Passive Income Masterclass.mp4  (435.1 MB) [already imported - will be moved here]
+  Business Coaching Programme/Business Coaching - Week Four - Planning a Launch.mp4  (368.0 MB) [already imported - will be moved here]
+  Business Coaching Programme/Business Coaching - Week One - Alignment.mp4  (380.9 MB) [already imported - will be moved here]
+  Business Coaching Programme/Business Coaching - Week Six - Facebook® Ads.mp4  (57.2 MB) [already imported - will be moved here]
+  Business Coaching Programme/Business Coaching - Week Three - Your Tribe.mp4  (215.9 MB) [already imported - will be moved here]
+  Business Coaching Programme/Business Coaching - Week Two - Becoming Magnetic.mp4  (216.7 MB)
+  Business Coaching Programme/Business Day - Day 1 Replay.mp4  (2.2 GB)
+  Business Coaching Programme/Business Day - Growing Your Audience.mp4  (1.8 GB)
+  Business Coaching Programme/Business Day - Where Are You Now.mp4  (1005.5 MB)
+  Business Coaching Programme/Business Day - Your Goal.mp4  (1.8 GB) [already imported - will be moved here]
+  Business Coaching Programme/Business Day - Your Invincible Offer.mp4  (2.8 GB)
+  Business Coaching Programme/Business Day - Your Launch.mp4  (1.8 GB) [already imported - will be moved here]
+  Business Coaching Programme/business_coaching.pdf  (22.2 MB)
+  Business Coaching Programme/Business_Coaching_Week_3-_Your_Tribe.pdf  (4.8 MB)
+  Business Coaching Programme/CFE_Social_Media_The_easy_way_INTERACTIVE_1_1_.pdf  (2.0 MB)
+  Business Strategy.mp4  (846.9 MB) [already imported]
+  Confidence Masterclass/COFIDENCE_11_STEPS.pdf  (4.6 MB) [already imported - will be moved here]
+  Confidence Masterclass/Confidence Coaching  (4.8 KB) [already imported - will be moved here]
+  Confidence Masterclass/Increase Your Self Confidence & Self Esteem.mp4  (583.2 MB) [already imported - will be moved here]
+  Confidence Masterclass/Powering through to become CONFIDENT AF! Confidence!.mp4  (629.6 MB) [already imported - will be moved here]
+  Confidence Masterclass/Powering through to become CONFIDENT AF! The Masterclass.mp4  (629.6 MB) [duplicate - was skipped]  -- identical content already imported (sha256 match)
+  Confidence Masterclass/Self_-_Confidence_and_Self_-_Esteem.pdf  (46.4 MB) [already imported - will be moved here]
+  Content repurposing .mp4  (431.8 MB)
+  Copywriting .mp4  (516.3 MB)
+  Cord Cutting.mp4  (94.9 MB)
+  Crystal Masterclass with Cam Wickers/1. Introduction .mov  (104.4 MB)
+  Crystal Masterclass with Cam Wickers/2. Crystal Meditation.mov  (1.3 GB)
+  Crystal Masterclass with Cam Wickers/3. Choosing your Crystal.mov  (271.5 MB)
+  Crystal Masterclass with Cam Wickers/4. Must Have Crystals.mov  (508.8 MB)
+  Crystal Masterclass with Cam Wickers/5. Incorporate Crystals into your Day to Day Life.mov  (499.9 MB)
+  Crystal Masterclass with Cam Wickers/6. Cleanse and Charge your Crystals .mov  (1.0 GB)
+  Crystal Masterclass with Cam Wickers/7. Incorporate Crystals into your Spiritual Practices.mov  (539.4 MB)
+  Discover the Power of your Future Self/Future Self Meditation/Belief_Coding_Meditation.wav  (567.6 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner COVER.pdf  (1.5 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 1.pdf  (1.1 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 10.pdf  (1.2 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 11.pdf  (1.1 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 12.pdf  (1.5 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 13.pdf  (3.1 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 14.pdf  (1.6 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 15.pdf  (1.2 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 16.pdf  (1.6 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 17.pdf  (1.8 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 18.pdf  (1.1 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 2.pdf  (1.7 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 3.pdf  (2.2 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 4.pdf  (1.2 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 5.pdf  (1.6 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 6.pdf  (1.9 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 7 .pdf  (2.6 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 8.pdf  (878.5 KB)
+  Discover the Power of your Future Self/Future Self Wall Planner/CFE Wall Planner PAGE 9.pdf  (2.0 MB)
+  Discover the Power of your Future Self/Future Self Wall Planner/Future Self Page.pdf  (1.7 MB)
+  Get into the media .mp4  (131.7 MB)
+  Goddess Energies.mp4  (192.6 MB)
+  Healing Chants/Ho'ponopono.mp4  (373.3 MB) [duplicate - will be skipped]  -- identical content to 'Ho'ponopono.mp4', also pending in this import
+  Healing Chants/Om_Gam_Ganapataye_Namaha.wav  (98.2 MB)
+  Healing Chants/Om_Mani_Padme_Hum_TCP.wav  (102.6 MB)
+  Ho'ponopono.mp4  (373.3 MB)
+  Incorporating Lucid Dreaming Techniques with Belief Coding hosted by Craig Seaton.mp4  (407.8 MB)
+  Instagram Story & Strategy Booster/Masterclass .mp4  (1.8 GB)
+  Instagram Story & Strategy Booster/Story_Schedule.pdf  (90.0 KB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 1 - The PMA Toolkit - Get started with Project Positive/Project_Positive_Print_out.png  (283.9 KB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 1 - The PMA Toolkit - Get started with Project Positive/Week 1 - The PMA Toolkit - Get started with Project Positive.mp4  (97.7 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 1 - The PMA Toolkit - Get started with Project Positive/Week_1.pdf  (223.9 KB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 1 - The PMA Toolkit - Project Positive Masterclass/Week 1 - The PMA Toolkit - Project Positive Masterclass.mp4  (618.2 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future Self - The Meditation/Belief_Coding_Meditation.wav  (567.6 MB) [duplicate - will be skipped]  -- identical content to 'Belief_Coding_Meditation.wav', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future Self - The Meditation/Week 2 - Future Self - The Meditation.mp4  (66.1 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future Self - Welcome/future_self_PDF.pdf  (3.4 MB) [duplicate - will be skipped]  -- identical content to 'future_self_PDF.pdf', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future Self - Welcome/Week 2 - Future Self - Welcome.mp4  (157.9 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future Self part 1/desktop.ini  (246 B) [duplicate - will be skipped]  -- identical content to 'desktop.ini', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future Self part 1/Week 2 - Future Self Part 1.mp4  (369.8 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future self part 2/Week 2 - Future Self Part 2.mp4  (166.6 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future self part 3/Week 2 - Future Self Part 3.mp4  (79.0 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Future self part 4/Week 2 - Future Self Part 4.mp4  (144.4 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Print out PDFS to fill in/desktop.ini  (246 B)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 2 - Print out PDFS to fill in/future_self_PDF.pdf  (3.4 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 3 - Turning Negative Actions in to Positive ones..easily/Week 3 - Turning Negative Actions in to Positive ones..easily.mp4  (248.6 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 3 - Turning Negative feelings in to Positive ones..easily/Positve_thoughts.mp4  (299.1 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 3 - Turning Negative feelings in to Positive ones..easily/Week 3 - Turning Negative feelings in to Positive ones..easily.mp4  (411.0 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 3 - Turning Negative Reactions in to Positive ones..easily/Week 3 - Turning Negative Reactions in to Positive ones..easily.mp4  (291.6 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 3 - Turning Negative thoughts in to Positive ones..easily/Positve_thoughts.mp4  (299.1 MB) [duplicate - will be skipped]  -- identical content to 'Positve_thoughts.mp4', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 3 - Turning Negative thoughts in to Positive ones..easily/Week 3 - Turning Negative thoughts in to Positive ones..easily.mp4  (299.1 MB) [duplicate - will be skipped]  -- identical content to 'Positve_thoughts.mp4', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 3 - Welcome to Positive in Opposite/Week 3 - Welcome to Positive In Opposites.mp4  (61.4 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Creating A Money Mindset - The Masterclass Booklet/Project_Positive_1_.pdf  (531.2 KB) [duplicate - will be skipped]  -- identical content to 'Money_Mindset.pdf', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Current Money Mindset/Current_money_mindset.mp4  (266.2 MB) [duplicate - will be skipped]  -- identical content to 'Week 4 - Current Money Mindset.mp4', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Current Money Mindset/Week 4 - Current Money Mindset.mp4  (266.2 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Introduction to your money mindset/Week 4 - Introduction to your money mindset.mp4  (115.6 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Our Beliefs have been give to us, GIVE THEM BACK!/desktop.ini  (246 B) [duplicate - will be skipped]  -- identical content to 'desktop.ini', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Our Beliefs have been give to us, GIVE THEM BACK!/Week 4 - Our Beliefs have been give to us, GIVE THEM BACK!.mp4  (591.2 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Our Money Story/desktop.ini  (246 B) [duplicate - will be skipped]  -- identical content to 'desktop.ini', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Our Money Story/Week 4 - Our Money Story.mp4  (239.5 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Part 1 - How i feel around money/Week 4 - Part 1 - How i feel around money .mp4  (282.8 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 4 - Part 2 - How I feel around money/Week 4 - Part 2 - How I feel around money.mp4  (129.3 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 5 - Introduction/Week 5 - Introduction.mp4  (62.5 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 5 - Stories Part 1/Week 5 - Stories part 1 .mp4  (204.1 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 5 - Stories part 2/Week 5 - Stories part 2.mp4  (224.2 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 5 - Stories part 3/Week 5 - Stories part 3.mp4  (193.2 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 5 - Stories part 4/Week 5 - Stories part 4.mp4  (257.3 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 5 - The Stories We Write - Worksheets/Project_Positive_3_.pdf  (131.6 KB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - Join me to go through Osho Dynamic Meditation/RELEASE_AND_SURRENDER.pdf  (17.4 KB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - Meditation/Week 6 - Meditation .mp4  (352.7 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - OSHO - Osho dynamic meditation intro/desktop.ini  (246 B) [duplicate - will be skipped]  -- identical content to 'desktop.ini', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - OSHO - Osho dynamic meditation intro/Week 6 - OSHO - Osho dynamic meditation intro..mp4  (138.7 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - Part 1 - Chaotic breathing/desktop.ini  (246 B) [duplicate - will be skipped]  -- identical content to 'desktop.ini', also pending in this import
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - Part 1 - Chaotic breathing/Week 6 - Part 1 -  Chaotic breathing.mp4  (156.1 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - Part 2 - Releasing The Chaos/Week 6 - Part 2 - Releasing The Chaos.mp4  (187.7 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - Part 3 - Hoo Hoo Hoo/Week 6 - Part 3 - Hoo Hoo Hoo.mp4  (173.6 MB)
+  JC TO BC - 6 Weeks to Inner Freedom/Week 6 - Part 4 - Silence and Stillness/Week 6 - Part 4 - Silence and Stillness.mp4  (150.8 MB)
+  Learn How to Work with Cacao/1. The Heart Laid Cacao Ceremony .mp4  (436.6 MB)
+  Learn How to Work with Cacao/2. Cacao Moon Ceremony part 1.mp4  (837.2 MB)
+  Learn How to Work with Cacao/3. Cacao Moon Ceremony - Part 2.mp4  (1.1 GB)
+  Learn How to Work with Cacao/4. Cacao Moon Ceremony - Part 3mp4.mp4  (953.0 MB)
+  Learn How to Work with Cacao/5. Cacao Moon Ceremony - part 4.mp4  (1.5 GB)
+  Learn How to Work with Cacao/6. Cacao Moon Ceremony - Part 5.mp4  (300.6 MB)
+  Learn How to Work with Cacao/7. Cacao Moon Ceremony part 6.mp4  (1.4 GB)
+  Learn How to Work with Cacao/8. How to Make the Perfect Cup of Cacao.mp4  (25.4 MB)
+  Learn How to Work with Cacao/Links  (1.9 KB)
+  Level Up/1. Level 1 .mp4  (1.1 GB)
+  Level Up/2. Level 2 .mp4  (629.1 MB)
+  Level Up/Belief Coding_Level_Up.pdf  (44.5 KB)
+  Level Up/Belief Coding® The-Level-Up.pdf  (3.6 MB)
+  Life Coaching with Belief Coding® Masterclass - Replay.mp4  (253.2 MB)
+  Life Coaching with Belief Coding® Masterclass - Replay/Life Coaching with Belief Coding® Masterclass - Replay.mp4  (253.2 MB) [duplicate - will be skipped]  -- identical content to 'Life Coaching with Belief Coding® Masterclass - Replay.mp4', also pending in this import
+  Life Coaching with Belief Coding® Masterclass - Replay/Life_coaching_with_Beliefcoding.pdf  (1.7 MB) [duplicate - will be skipped]  -- identical content to 'Life_coaching_with_Beliefcoding.pdf', also pending in this import
+  Life_coaching_with_Beliefcoding.pdf  (1.7 MB)
+  Manifestation Coding/Manifestation_Coding.pdf  (23.7 MB) [already imported - will be moved here]
+  Manifestation Coding/Manifesting Coding.mp4  (549.4 MB) [already imported - will be moved here]
+  Meet your Spirit Guides/Copy of Meet your Spirit Guide Session .mp4  (331.2 MB)
+  Meet your Spirit Guides/Meet your Spirit Guide Session .mp4  (331.2 MB) [duplicate - will be skipped]  -- identical content to 'Copy of Meet your Spirit Guide Session .mp4', also pending in this import
+  Meet your Spirit Guides/What You Need To ENHANCE Your Experience  (1.0 KB)
+  Mission Statement.mp4  (320.5 MB)
+  Money Mindset/Money Mindset - Module 1.mp4  (430.8 MB)
+  Money Mindset/Money Mindset - Module 2.mp4  (295.3 MB)
+  Money Mindset/Money Mindset - Module 3.mp4  (206.4 MB)
+  Money Mindset/Money Mindset - Module 4.mp4  (113.1 MB)
+  Money Mindset/Money Mindset - Module 5.mp4  (244.4 MB)
+  Money Mindset/Money Mindset - Module 6.mp4  (244.4 MB) [duplicate - will be skipped]  -- identical content to 'Money Mindset - Module 5.mp4', also pending in this import
+  Money Mindset/Money Mindset - Module 7.mp4  (87.1 MB)
+  Money Mindset/Money Mindset - Module 8.mp4  (245.7 MB)
+  Money Mindset/Money_Mindset.pdf  (531.2 KB)
+  Online Retreat.mp4  (2.5 GB)
+  Passive Income & Revenue Streams .mp4  (394.1 MB)
+  Public_Speaking.mp4  (157.5 MB)
+  Reiki 1/1. Reiki_Intro.mp4  (61.3 MB)
+  Reiki 1/10. 21_Day_Attunement_Process.mp4  (52.4 MB)
+  Reiki 1/11. Empowering_Your_Energy.mp4  (268.8 MB)
+  Reiki 1/12. _Preparing_and_Cleansing_the_Space.mp4  (130.2 MB)
+  Reiki 1/13. Kanji_Hand_Positions.mp4  (49.2 MB)
+  Reiki 1/14. Tottem_Connection_Sequence.mp4  (108.2 MB)
+  Reiki 1/15. Self_Reiki.mp4  (268.8 MB)
+  Reiki 1/16. Reiki_Treatments_-_Part_1.mp4  (73.4 MB)
+  Reiki 1/17. Reiki_Treatments_-_Part_2.mp4  (722.4 MB)
+  Reiki 1/18. Reiki_Treatment_Seated.mp4  (194.5 MB)
+  Reiki 1/19. Purging.mp4  (99.9 MB)
+  Reiki 1/2. What_is_Reiki (1).mp4  (75.2 MB)
+  Reiki 1/20. Reiki_on_Animals_and_Plants.mp4  (36.1 MB)
+  Reiki 1/21. Reiki_Outro.mp4  (20.2 MB)
+  Reiki 1/3. Opening_Space_Meditation.mp4  (232.4 MB)
+  Reiki 1/4. The_Benefits_of_Reiki.mp4  (141.8 MB)
+  Reiki 1/5. The_History_of_Reiki.mp4  (15.4 MB)
+  Reiki 1/6. Reiki_Principles.mp4  (765.5 MB)
+  Reiki 1/7. The_Auras.mp4  (850.9 MB)
+  Reiki 1/8. The_Chakra_Systen.mp4  (1.3 GB)
+  Reiki 1/9. Attunements.mp4  (69.3 MB)
+  Reiki 1/Reiki Code of Conduct UKRF_Ethics_Practice.pdf  (260.3 KB)
+  Reiki 1/Workbook - Reiki 1 Belief Coding Community  (5.4 MB)
+  Reiki 2/1. Reiki_2_-_Welcome.mp4  (46.9 MB) [already imported - will be moved here]
+  Reiki 2/10. Hon_Sha_Ze_Sho_Nen_-_Part_4.mp4  (166.5 MB) [duplicate - was skipped]  -- file with same name/size already present in destination folder
+  Reiki 2/2. Cho_Ku_Rei_-_Part_1.mp4  (357.8 MB) [already imported - will be moved here]
+  Reiki 2/3. Cho_Ku_Rei_-_Part_2.mp4  (118.6 MB) [already imported - will be moved here]
+  Reiki 2/4. Sei_He_Ki_-_Part_1.mp4  (214.0 MB) [already imported - will be moved here]
+  Reiki 2/5. Sei_He_Ki_-_Part_2.mp4  (39.8 MB) [already imported - will be moved here]
+  Reiki 2/6. Sei_He_Ki_-_Part_3.mp4  (84.4 MB) [already imported - will be moved here]
+  Reiki 2/7. Hon_Sha_Ze_Sho_Nen_-_Part_1.mp4  (181.8 MB) [already imported - will be moved here]
+  Reiki 2/8. Hon_Sha_Ze_Sho_Nen_-_Part_2.mp4  (82.9 MB) [already imported - will be moved here]
+  Reiki 2/9. Hon_Sha_Ze_Sho_Nen_-_Part_3.mp4  (454.7 MB) [already imported - will be moved here]
+  Reiki 2/Reiki_2_Manual_Belief_Coding_Community.pdf  (969.7 KB) [already imported - will be moved here]
+  Remote Viewing.mp4  (279.3 MB)
+  Retreat Day .mp4  (1.5 GB)
+  See, Believe, Receive Manifestation & Strategy Workshop mp4.mp4  (447.4 MB)
+  Sheild Your Energy.mp4  (86.3 MB) [duplicate - will be skipped]  -- identical content to 'Shielding your energy.mp4', also pending in this import
+  Shielding your energy.mp4  (86.3 MB)
+  The Akashic Records/Accessing Your Akashic Records - Visiting Your Akashic Records.mp4  (371.1 MB)
+  The Akashic Records/Belief Coding_The_Akashic_Records.pdf  (38.2 KB)
+  The Akashic Records/The Akashic Records  (8.1 KB)
+  Working with Your Spirit Animal/1. About Your Master.mp4  (69.7 MB)
+  Working with Your Spirit Animal/2. The Difference - Power, Totem and Spirit.mp4  (96.1 MB)
+  Working with Your Spirit Animal/3. Meet Your Power Animal Meditation.mp4  (177.5 MB)
+  Working with Your Spirit Animal/4. Using Your Power Animal In Day To Day Life.mp4  (57.4 MB)
+  Working with Your Spirit Animal/Belief Coding_Working_with_Your_Spirit_Guides.pdf  (39.0 KB)
+  £500 Blueprint/£500 Blueprint/_5000_Blueprint_Formula.pdf  (325.8 KB)
+  £500 Blueprint/£500 Blueprint/Belief Coding_5000_Blueprint.pdf  (39.2 KB)
+  £500 Blueprint/£500 Blueprint/CFE_Money_Mindset_Workbook_1_.pdf  (1.2 MB)
+  £500 Blueprint/£500 Blueprint/Part 1 .mp4  (2.9 GB)
+  £500 Blueprint/£500 Blueprint/Part 2 .mp4  (2.8 GB)
