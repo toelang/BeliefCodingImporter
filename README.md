@@ -76,6 +76,27 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+## Updating to a newer version
+
+Whenever there's an update, double-click **`update.bat`**. It downloads
+the latest project files from GitHub and replaces them in place -
+`credentials.json`, `token.json`, your `PDFs/` folder, and your import
+history (`import_state.db` / `import_log.csv` / `import_plan.txt`) are
+never touched, so there's no need to re-authenticate, re-add your PDFs,
+or lose progress. This replaces the old "download a zip and manually
+copy your files over" process entirely.
+
+If this is your first time getting an update this way and `update.bat`
+doesn't exist yet in your project folder, open Command Prompt in the
+project folder and paste this once:
+
+```
+powershell -NoProfile -Command "iwr https://raw.githubusercontent.com/toelang/BeliefCodingImporter/claude/belief-coding-importer-abvyhd/update.ps1 -OutFile update.ps1; .\update.ps1"
+```
+
+That fetches the updater itself and runs it immediately - `update.bat`
+will be there for you to double-click next time.
+
 ## 3. Add your input
 
 - Put every index PDF you have into the `PDFs/` folder.
@@ -404,6 +425,8 @@ BeliefCodingImporter/
     logger.py                CSV logging + live progress display
     requirements.txt
     run.bat
+    update.bat               Double-click to pull the latest version (see "Updating")
+    update.ps1
     PDFs/                    Put your index PDFs here (never uploaded)
 ```
 
